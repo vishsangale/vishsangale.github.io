@@ -25,3 +25,9 @@ target: dependency
 [tab] rule
 
 {% endhighlight %}
+
+If your default makefile name is not 'makefile' or 'Makefile' then you need to run following command to run your makefile.
+
+{% highlight make linenos %}
+make -f youtmakefilename
+{% endhighlight %}
