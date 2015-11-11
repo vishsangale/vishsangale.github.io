@@ -12,7 +12,8 @@ CXX:=g++
 CPPFLAGS:=
 #Compiler flags
 CFLAGS:=
-RM:=rm -f
+#Target architecture for 64 bit it should be linux64 and 32 bit linux
+TARGET_ARCH:= linux64
 
 .PHONY:all
 all:main
@@ -26,7 +27,7 @@ clean:
 
 {% endhighlight %}
 
-When we say make from command line it will for search makefile in your current folder and will execute first command in a makefile. In above example all is the first command. Basic structure of a command can be seen as follows, where left part of the colon[:] is called as target, right side of the colon are dependencies if there are any. Next line of it should start with a tab, if tab is missing rule won't be executed. And after tab whatever you want run is written which is called as a rule. More than one rule can be executed for given target. In above code 'CC' and 'RM' are two variables, those are defined above and used below in make rules.
+When we say make from command line it will for search makefile in your current folder and will execute first command in a makefile. In above example all is the first command. Basic structure of a command can be seen as follows, where left part of the colon[:] is called as target, right side of the colon are dependencies if there are any. Next line of it should start with a tab, if tab is missing rule won't be executed. And after tab whatever you want run is written which is called as a rule. More than one rule can be executed for given target. In above code 'CC' and 'RM' are two variables, those are defined above and used below in make rules. Rule names which do not exist on the file system should be '.PHONY'.
 
 {% highlight make linenos %}
 
