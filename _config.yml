@@ -11,26 +11,26 @@ gems: [jekyll-paginate]
 permalink:           pretty
 
 # Setup
-title:               Naringu
-tagline:             'A Hacker like jekyll theme'
-description:         'oonlab is crafted with <3 by ariestiyansyah.'
-url:                 http://naringu.oonlab.com
+title:               The Shooting Star
+tagline:             'Programmer, Amateur Astronomer and Photographer'
+description:         'Personal website for sharing my projects, pictures and some blogs.'
+url:                 http://vishsangale.github.io
 baseurl:             /
 paginate:            7
 
 # About/contact
 author:
-  name:              Rizky Ariestiyansyah
-  url:               https://twitter.com/ariestiyansyah
-  email:             ariestiyansyah.rizky@gmail.com
+  name:              Vishwanath Sangale
+  url:               https://twitter.com/vishsangale
+  email:             vishsangale@gmail.com
 
 # Custom vars
 version:             2.0
 
 # Social Media
-github:				http://github.com/ariestiyansyah
-twitter:			http://twitter.com/ariestiyansyah
-disqus:             testnaringu
+github:				http://github.com/vishsangale
+twitter:			http://twitter.com/vishsangale
+disqus:             vish
 
 # Theme Author (Please don't edit this line cause of MIT LICENSE rules)
 theme:
