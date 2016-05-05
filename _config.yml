@@ -32,6 +32,19 @@ github:				http://github.com/vishsangale
 twitter:			http://twitter.com/vishsangale
 disqus:             vish
 
+footer-links:
+  dribbble: vishsangale
+  email: vishsangale@gmail.com
+  facebook: rvishsangale
+  flickr: vishwanath.sangale
+  github: vishsangale
+  instagram: vishsangale
+  linkedin: vishsangale
+  pinterest: 
+  rss: on # just type anything here for a working RSS icon, make sure you set the "url" above!
+  twitter: vishsangale
+  stackoverflow: users/5400160/vishwanath-sangale
+
 # Theme Author (Please don't edit this line cause of MIT LICENSE rules)
 theme:
   creator:			Rizky Ariestiyansyah
