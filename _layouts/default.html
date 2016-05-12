@@ -8,12 +8,13 @@
 <body>
 <header>
 	<strong>The Shooting Star</strong>
-	{% include nav.html %}
+	{% include nav.html navclass='nav-top' %}
 </header>
 
 {{content}}
 
 <footer>
+	{% include nav.html navclass='nav-bottom' %}
 	<p>© 2016 Vishwanath Sangale</p>
 </footer>
 
