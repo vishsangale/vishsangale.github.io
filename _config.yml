@@ -1,3 +1,4 @@
 markdown: kramdown
-baseurl: /
-exclude: ['README.md']
+url:      http://vishsangale.github.io
+baseurl:  /
+exclude:  ['README.md']
