@@ -1,5 +1,0 @@
-# vishsangale
-
-Personal website.
-
-

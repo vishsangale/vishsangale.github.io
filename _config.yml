@@ -1,20 +1,3 @@
-# Build settings
-
 markdown: kramdown
-permalink: pretty
 
-port: 8000
-
-include: ['_includes/work']
-exclude: ['the_design.psd']
-
-sass:
-  sass_dir: assets/css
-  style: :nested
-
-title:               Vishwanath Sangale
-tagline:             'Programmer, Amateur Astronomer and Photographer'
-description:         'Personal website for sharing my projects, pictures and some blogs.'
-url:                 http://vishsangale.github.io
-baseurl:             /
-paginate:            7
+baseurl: /
