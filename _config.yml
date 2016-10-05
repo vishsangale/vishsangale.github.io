@@ -39,7 +39,7 @@ disqus_shortname:   vishsangale
 #bing-verify:
 email:              vishsangale@gmail.com
 twitter:            vishsangale
-facebook:           rvishsangale
+#facebook:           rvishsangale
 github:             vishsangale
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
 linkedin:          vishsangale
@@ -47,7 +47,7 @@ linkedin:          vishsangale
 instagram:          vishsangale
 #lastfm:            username
 #tumblr:            username
-pinterest:         vishsangale
+#pinterest:         vishsangale
 #foursquare:        username
 #steam:              username
 #dribbble:          username
@@ -58,7 +58,9 @@ youtube:           vishsangale
 #codepen:           username
 #keybase:           username
 #xmpp:              username@server.com
-#hackernews:        username
+hackernews:        vishsangale
+hackerrank:        vishsangale
+hackerearth:       vishsangale
 
 # Gems
 gems:

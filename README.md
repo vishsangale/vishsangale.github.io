@@ -1,1 +1,1 @@
-Personal website for projects, blogs, photographs taken by me.
+Personal website for projects, technical blogs.
