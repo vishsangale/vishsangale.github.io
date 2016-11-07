@@ -18,6 +18,7 @@ something _Pythonic_. _Pythonic_ is vague concept, it is not hard
 defined.
 
 * Traverse a list
+
 ```python
 l = ['a', 'c', 'b', 'e', 'f']
 for i in range(length(l)):
@@ -38,6 +39,7 @@ for item in l:
 
 It is possible that, in your logic you may need both index and an 
 element of the list to perform some operation.
+
 ```python
 l = ['a', 'c', 'b', 'e', 'f']
 for i in range(length(l)):
@@ -46,7 +48,7 @@ for i in range(length(l)):
 
 We can write above code in _Pythonic_ way as follows using `enumerate`,
 
-```
+```python
 l = ['a', 'c', 'b', 'e', 'f']
 for index, item in enumerate(l):
     print index, item
@@ -58,6 +60,7 @@ Most of us have already learned `C`, `C++`, `Java` before learning
 Python. For swapping two elements, we use `temp` variable like below,
 
 ```python
+def swap(a, b):
    temp = a
    a = b
    b = temp
@@ -67,6 +70,7 @@ In Python, we can simply do swap like below without using `temp` variable
 just using tuple since tuples are immutable data types in Python,
 
 ```python
+def swap(a, b):
     a, b = b, a
 ```
 
