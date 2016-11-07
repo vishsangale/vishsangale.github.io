@@ -19,6 +19,8 @@ defined.
 
 * Traverse a list
 
+A simple foor loop for traversal can be written as follows,
+
 ```python
 l = ['a', 'c', 'b', 'e', 'f']
 for i in range(length(l)):
