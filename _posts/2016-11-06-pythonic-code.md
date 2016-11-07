@@ -23,6 +23,7 @@ l = ['a', 'c', 'b', 'e', 'f']
 for i in range(length(l)):
     print l[i]
 ```
+
 In above code, we are traversing a list using built-in `range` function,
 which is not most _Pythonic_ way to do. You can traverse a list like
 below which is more readable and easy to understand.
@@ -42,7 +43,9 @@ l = ['a', 'c', 'b', 'e', 'f']
 for i in range(length(l)):
     print i, l[i]
 ```
+
 We can write above code in _Pythonic_ way as follows using `enumerate`,
+
 ```
 l = ['a', 'c', 'b', 'e', 'f']
 for index, item in enumerate(l):
@@ -53,13 +56,16 @@ for index, item in enumerate(l):
 
 Most of us have already learned `C`, `C++`, `Java` before learning 
 Python. For swapping two elements, we use `temp` variable like below,
+
 ```python
    temp = a
    a = b
    b = temp
 ```
+
 In Python, we can simply do swap like below without using `temp` variable
 just using tuple since tuples are immutable data types in Python,
+
 ```python
     a, b = b, a
 ```
@@ -72,18 +78,23 @@ def is_item_present(l, search):
         if search == l[i]:
             return True
 ```
+
 or
+
 ```python
 def is_item_present(l, search):
     for item in l:
         if search == item:
             return True
 ```
+
 In more _Pythonic_ way, you can just write,
+
 ```python
 def is_item_present(l, search):
     return search in l
 ```
+
 In above examples, you can use any collection data type of Python like
 `list`, `set`, `dictionary` etc.
 
