@@ -1,11 +1,12 @@
 ---
 layout: post
-title: How to write _Pythonic_ code!
+title: How to write a Pythonic code!
 date: 2016-11-06
 comments: true
 ---
 
 Why to write a code in Pythonic way?
+
 * Highly readable(Almost looks like Pseudo-code).
 * Probably Faster.
 * Easy to write and understand.
@@ -70,8 +71,9 @@ def is_item_present(l, search):
     for i in range(len(l)):
         if search == l[i]:
             return True
-
-        or 
+```
+or
+```python
 def is_item_present(l, search):
     for item in l:
         if search == item:
