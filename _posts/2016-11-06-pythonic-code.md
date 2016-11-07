@@ -7,9 +7,9 @@ comments: true
 
 Why to write a code in Pythonic way?
 
-* Highly readable(Almost looks like Pseudo-code).
-* Probably Faster.
-* Easy to write and understand.
+* Highly readable(Almost looks like Pseudo-code)
+* Probably Faster
+* Easy to write and understand
 
 
 Below are some tricks, using which you can make your code _Pythonic_.
