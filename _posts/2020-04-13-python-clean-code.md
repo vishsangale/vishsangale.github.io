@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Python Clean Code"
+subtitle: "How to write pythonic code"
+date: 2020-04-14 18:45:13 -0400
+background: '/img/posts/01.jpg'
+tags: python
+---
+
 Some Python clean code examples.
 
 ### 1. Use iterators instead of index based for loops
