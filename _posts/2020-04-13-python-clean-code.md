@@ -70,3 +70,44 @@ for item in items:
 items = [1, 3, 5]
 other_items = [item * item for item in items]
 ```
+
+### 5. Dictionary comprehension
+**Bad code**
+```python
+items = [1, 3, 5]
+items_dict = {}
+for i, item in enumerate(items):
+    items_dict[i] = item
+```
+**Good code**
+```python
+items = [1, 3, 5]
+items_dict = {i:item for i, item in enumerate(items)}
+```
+
+### 6. Use Counter instead of dict for counting elements
+**Bad code**
+```python
+items = [1, 2, 4, 2, 3, 5, 3, 1, 2, 3, 5, 6, 4]
+d = dict()
+for item in items:
+    if item not in d:
+        d[item] = 1
+    else:
+        d[item] += 1
+```
+**Good code**
+```python
+from collections import Counter
+items = [1, 2, 4, 2, 3, 5, 3, 1, 2, 3, 5, 6, 4]
+d = Counter()
+for item in items:
+    d[item] += 1
+```
+
+**Better code**
+```python
+from collections import Counter
+items = [1, 2, 4, 2, 3, 5, 3, 1, 2, 3, 5, 6, 4]
+d = Counter(items)
+```
