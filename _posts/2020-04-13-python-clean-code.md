@@ -111,3 +111,16 @@ from collections import Counter
 items = [1, 2, 4, 2, 3, 5, 3, 1, 2, 3, 5, 6, 4]
 d = Counter(items)
 ```
+
+### 7. Use context managers
+**Bad code**
+```python
+f = open("some_file")
+data = f.read()
+f.close()
+```
+**Good code**
+```python
+with open("some_file") as f:
+    data = f.read()
+```
