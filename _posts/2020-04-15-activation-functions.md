@@ -9,7 +9,7 @@ math: true
 Activation functions are the mathematical "gates" that decide whether a neuron should fire or stay dormant. They introduce non-linearity into a neural network, allowing it to learn complex, non-linear relationships in data.
 
 ## Sigmoid
-- **Range:** [0, 1]
+- **Range:** $[0, 1]$
 - **Pros:** Clear probabilistic interpretation.
 - **Cons:**
     - **Saturating Gradients:** For large positive or negative inputs, the gradient is almost zero, leading to the vanishing gradient problem.
@@ -17,29 +17,29 @@ Activation functions are the mathematical "gates" that decide whether a neuron s
     - **Compute-Intensive:** `exp()` is relatively slow compared to linear operations.
 
 ## Tanh (Hyperbolic Tangent)
-- **Range:** [-1, 1]
+- **Range:** $[-1, 1]$
 - **Pros:**
     - **Zero-Centered:** Resolves the output centering issue found in Sigmoid.
 - **Cons:**
     - **Saturating Gradients:** Still suffers from the vanishing gradient problem in the extreme regions.
 
 ## ReLU (Rectified Linear Unit)
-- **Range:** [0, $\infty$]
+- **Range:** $[0, \infty)$
 - **Formula:** $f(x) = \max(0, x)$
 - **Pros:**
-    - **Does Not Saturate:** Gradients are constant (1.0) in the positive region.
+    - **Does Not Saturate:** Gradients are constant ($1.0$) in the positive region.
     - **Very Fast:** Only requires a simple thresholding operation.
     - **Sparsity:** Promotes sparse activations (some neurons stay inactive).
 - **Cons:**
     - **Dead ReLU Problem:** If a large gradient flows through a ReLU neuron such that the weight update causes it to never activate again, the neuron is effectively "dead" and provides zero gradient to downstream layers.
 
 ## Leaky ReLU
-- **Range:** [-\infty, \infty]
+- **Range:** $(-\infty, \infty)$
 - **Formula:** $f(x) = \max(\alpha x, x)$ where $\alpha$ is a small constant (e.g., 0.01).
 - **Pros:** Solves the "Dead ReLU" problem by ensuring a small, non-zero gradient even for negative inputs.
 
 ## ELU (Exponential Linear Unit)
-- **Range:** [-\alpha, \infty]
+- **Range:** $(-\alpha, \infty)$
 - **Pros:**
     - All benefits of ReLU and Leaky ReLU.
     - Has a smoother output that is closer to zero-centered than ReLU.
