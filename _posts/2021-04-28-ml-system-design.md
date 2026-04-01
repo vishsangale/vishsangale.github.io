@@ -4,104 +4,54 @@ date: 2021-04-28 12:00:00 -0400
 categories: [ML, Systems]
 tags: [system-design, architecture]
 ---
-## Systems Design:
-* Lead the discussion
-* Talk about tradeoffs of your decision, Common pitfalls, and how you would address them
-* Pro-actively defend your design decisions
-* Demonstrate an end to end understanding of your design (high level and details)
-* Details: Touch upon storage, data flow, core data structure, data query
-* Database, storage, scalability, webserver, cache, security, algorithm
 
-## Steps to talk about
-- Requirements
-- High level design
-- Data deep-dive
-- ML Algorithm
-- Evaluation
-- Experimentation
-- Deployment
+Designing a machine learning system is vastly different from designing a traditional software system. It requires balancing the needs of high-availability software architecture with the complexities of model training, data engineering, and performance evaluation.
 
-## Gather system requirements
-- Number of users to serve
-- Platform Web, mobile
-- Latency
-- Throughput
-- Objective of the system
-- How to major success?
+## 1. Gather System Requirements
 
+Start by defining the scope. You can't design the right system if you don't know who it's for.
+- **Scale:** How many users? (e.g., 10M DAU)
+- **Platform:** Web, mobile, or both?
+- **Latency:** Is this real-time (e.g., ad ranking, search) or batch (e.g., weekly email)?
+- **Throughput:** How many requests per second (RPS)?
+- **Objectives:** What is the core business objective? (e.g., CTR, user retention, revenue)
 
-## ML Design: In addition to leading the discussion, be prepared to discuss
-* Feature Engineering – Deep Dive, discuss as many features as you can think of
-* Modeling- Loss Function, Optimizer, Etc
-* Training Data
-* Evaluation
-* ML concepts YOU KNOW and how to apply them
+## 2. High-Level Design
 
+Define the core building blocks:
+- **Data Source:** Where is the raw data? (e.g., user events, logs)
+- **Data Storage:** SQL, NoSQL, or a data lake like S3?
+- **Feature Store:** A centralized location for feature engineering and retrieval.
+- **Model Service:** How will the model be served? (e.g., FastAPI, TensorFlow Serving)
+- **Monitoring & Logging:** How will we track performance and catch errors?
 
-## Data
-- Sources of Data
-- Distribution in Data
-- Size of Data
-- How data is labeled
-- How data is stored
-- Are images taken from same camera?
-- Are images of the same size?
-- Statistical analysis of data, mean var, look at the outliers, understand the data
-- Look for unbalances dataset
-- Normalize the input
-- Data augmentation
+## 3. Data Deep-Dive
 
-## Training
-- Multi-GPU, Multi-Server training
-- Data preprocessing on multi-CPU
-- Use prefetch for improving training time
+This is often the most critical part of an ML system:
+- **Preprocessing:** Handling missing values, normalization, and encoding.
+- **Feature Engineering:** Creating derived features (e.g., user click history in the last 10 minutes).
+- **Sampling Strategy:** How will we handle class imbalance?
+- **Data Drift:** How will the system react when the underlying data distribution changes?
 
+## 4. ML Algorithm Choice
 
+Select the right model for the job:
+- **Candidate Generation:** Fast, simple models (e.g., Collaborative Filtering, Approximate Nearest Neighbors).
+- **Ranking:** Complex, high-precision models (e.g., Deep Learning, Gradient Boosted Trees).
+- **Online vs. Offline:** Will the model learn in real-time or from static datasets?
 
-## Algorithm
-- Can we build heuristic/rules based simple Algorithm
-- Can we use classical ML algorithms
-- Why do we NN?
-- What kind of NN? CNN? FCN?
-- Start with simple models, validate hypothesis and training pipeline
+## 5. Evaluation & Experimentation
 
-## Evaluation
-- What is the goal of the algorithm? What is it trying to optimize?
-- How to define success
-- Measure on unseen data, Measure on real time Distribution.
-- may need to do A/B testing with current algorithm
-- Bias in data, creating bias in algorithm
-- Is it harmful to the society, creating more diversity issues
-- Fairness of the algorithm
-- Where do we want to run the algorithm? Mobile? Cloud? Multiple locations?
-- Do we need to optimize for time and memory of the algorithm?
-- Latency requirements?
-- Online vs offline testing? A/B testing?
-- Is data stored on the phone or uploaded to cloud?
-- Reproducibility of model training
-- Reproducibility of model inference, non-deterministic behavior from CUDA libraries
+- **Offline Metrics:** RMSE, AUC-ROC, Precision/Recall, Log-Loss.
+- **Online Metrics:** CTR, Conversion Rate, Session Length.
+- **A/B Testing:** How will we roll out the new model? (e.g., 5% traffic vs. 95% traffic)
 
-## Models in Productions
-- Serving
-- Multiple serving servers with load-balancer for scalability  
-- Add logging of features
-- Add logging of data distribution to detect shift in data
+## 6. Deployment & Monitoring
 
-## Misc:
-- Test model performance in training and in serving
-- Test the determinism of the model in serving since, ML has an element of unpredictability
-- Test infra independent of the model
-- Log the metrics
-- Log the features
-- Sanity check before and after exporting the model
-- How often do you want to update the model?  
-- How often do you want to retrain? Reduce training and evaluation time?
-- Be mindful of change in data pipeline, feature changing definition
-- Privacy in ML, federated learning
+- **Deployment Strategy:** Canary deployments, Blue-Green deployments.
+- **Monitoring:** Track for model decay, feature drift, and system latency.
+- **Retraining:** Automate the retraining pipeline based on a time schedule or performance drop.
 
-## Optimize Model
-- For inference time and memory, do pruning
-  - Iterative pruning, remove the lowest weight per iteration
-  - Mixed Precision Training
+## Conclusion
 
-
+A successful ML system is not just about the best model—it's about the **best data pipeline and monitoring**. Prioritize scalability and ease of iteration over complex, black-box architectures.
