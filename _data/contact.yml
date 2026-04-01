@@ -1,0 +1,17 @@
+#  The footer's contact options
+#
+# List of available keys:
+#  - type: Key from `_data/share.yml`
+#  - url: URL
+#
+# To learn more about font-awesome icons, see:
+# https://fontawesome.com/icons?d=gallery&m=free
+
+- type: github
+  url: "https://github.com/vishsangale"
+
+- type: linkedin
+  url: "https://www.linkedin.com/in/vishsangale"
+
+- type: rss
+  url: "https://recsysml.substack.com/"
