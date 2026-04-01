@@ -17,28 +17,52 @@ The result? A **3.1x increase in throughput**—from ~29,000 to over **92,000 to
 Training a model in 2025 with 2019 architectural choices is leaving performance and stability on the table. My implementation introduces several "state-of-the-art" flags:
 
 ### RoPE (Rotary Positional Embeddings)
-Absolute learned positional embeddings (the 2019 standard) often fail to generalize to sequences longer than those seen during training. By implementing **RoPE**, the model leverages relative positioning, improving the attention mechanism's ability to capture long-range dependencies and theoretically extending the effective context window.
+Absolute learned positional embeddings (the 2019 standard) often fail to generalize to sequences longer than those seen during training. By implementing **RoPE**, the model rotates the query ($q$) and key ($k$) vectors based on their position $m$:
+$$f_q(x_m, m) = \begin{pmatrix} \cos m\theta & -\sin m\theta \\ \sin m\theta & \cos m\theta \end{pmatrix} \begin{pmatrix} x_{m, 2i} \\ x_{m, 2i+1} \end{pmatrix}$$
+This leverages relative positioning, improving the attention mechanism's ability to capture long-range dependencies.
 
 ### RMSNorm and SwiGLU
-I replaced LayerNorm with **RMSNorm** to simplify the computation (removing mean-centering) and improve training stability. Additionally, I swapped the GeLU activation for **SwiGLU**. My ablation tests on **FineWeb-Edu** showed that while SwiGLU increases the FLOPs per step, it leads to faster convergence and a lower final validation loss (4.04 vs. 4.42 for the baseline).
+I replaced LayerNorm with **RMSNorm** to simplify the computation (removing mean-centering) and improve training stability:
+$$y = \frac{x}{\sqrt{\text{mean}(x^2) + \epsilon}} \odot \gamma$$
+Additionally, I swapped the GeLU activation for **SwiGLU**:
+$$\text{SwiGLU}(x) = \text{SiLU}(xW) \otimes xV$$
+My ablation tests on **FineWeb-Edu** showed that while SwiGLU increases the FLOPs per step, it leads to faster convergence and a lower final validation loss (4.04 vs. 4.42 for the baseline).
 
 ## 2. Pushing the Limits of 16GB VRAM
 
 A naive implementation of GPT-2 124M often suffers from Out-of-Memory (OOM) errors even at moderate batch sizes. The 92k tokens/sec throughput was achieved through a series of "hardware-aware" optimizations:
 
-### Flash Attention 2
-By utilizing `torch.nn.functional.scaled_dot_product_attention`, the implementation leverages **Flash Attention 2**. This avoids the $O(N^2)$ memory bottleneck by keeping the attention matrix on-chip, allowing me to increase the batch size from **4 to 16** on the same 16GB hardware without OOMing.
+| Optimization | Batch Size | Speed (tokens/sec) | Improvement |
+| :--- | :--- | :--- | :--- |
+| **Initial Naive** | 4 | ~29,000 | 1.0x |
+| **+ DataLoader & Fused AdamW** | 4 | ~63,500 | 2.2x |
+| **+ Flash Attention 2** | 8 | ~67,500 | 2.3x |
+| **+ torch.compile** | **16** | **~92,000+** | **3.1x** |
 
-### Vocabulary Padding for Tensor Cores
-A subtle but critical optimization: I padded the standard vocabulary to **50,304** (the nearest multiple of 64). This ensures that the GPU tiles are perfectly aligned during the final linear layer's matrix multiplication, maximizing Tensor Core utilization and providing a significant speedup in the logit calculation.
+### Flash Attention 2 & Vocabulary Padding
+By utilizing `torch.nn.functional.scaled_dot_product_attention`, I leveraged **Flash Attention 2**, avoiding the $O(N^2)$ memory bottleneck. Furthermore, I padded the vocabulary to **50,304** (the nearest multiple of 64). This ensures GPU tile alignment during the final linear layer, maximizing Tensor Core utilization.
 
-## 3. The "Small Data" Pitfall
+## 3. Results: Tiny Shakespeare vs. FineWeb
 
-An interesting "human" insight discovered during training: when testing on the **Tiny Shakespeare** dataset, the modernized architecture (with SwiGLU and RoPE) overfit significantly faster than the vanilla baseline. Its increased expressivity is a double-edged sword; it requires high-quality, large-scale data like **FineWeb-Edu** to truly shine. On a 10B token sample of FineWeb, the modernized model achieved an ~8.6% improvement in validation loss over the original 2019 design.
+An interesting "human" insight discovered during training: when testing on a small dataset like **Tiny Shakespeare**, the modernized architecture (with SwiGLU and RoPE) overfit significantly faster.
+
+| Dataset | Experiment | Step | Train Loss | Val Loss |
+| :--- | :--- | :--- | :--- | :--- |
+| **Tiny Shakespeare**| Vanilla | 1000 | 0.0707 | **7.7550** |
+| **Tiny Shakespeare**| Modernized | 1000 | **0.0296** | 8.4237 |
+| **FineWeb-Edu** | Vanilla | 2000 | 4.2383 | 4.4223 |
+| **FineWeb-Edu** | Modernized | 2000 | **3.7576** | **4.0407** |
+
+On a 10B token sample of **FineWeb**, the modernized model achieved an **~8.6% improvement** in validation loss.
+
+### Qualitative Check: Generated Samples
+Starting with *"The internet is"*:
+- **Vanilla Model:** *"The internet is usually done when the user's homeware is allowed..."* (Contains minor hallucinations like 'homeware').
+- **Modernized Model:** *"The internet is the key to the growth of a business and the growth of his business..."* (Perfect grammar, highly coherent).
 
 ## Conclusion
 
-Rebuilding GPT-2 in 2025 is a masterclass in how much "free" performance we've gained through software optimizations and more efficient architectures. It proves that even with the same parameter count, a model's performance is deeply tied to the "craft" of its implementation.
+Rebuilding GPT-2 in 2025 proves that even with the same parameter count, a model's performance is deeply tied to the "craft" of its implementation. The learning curves (available in `assets/loss_curve.png`) show that architectural efficiency is a force multiplier for data scale.
 
 ***
 
