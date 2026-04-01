@@ -1,6 +1,5 @@
-title:              Vish Blog
-email:              me@vishsangale.com
-description:        Blogs by Vish Sangale
+title:              Vish Sangale | AI & Robotics Musings
+description:        Staff Machine Learning Researcher at Meta | Exploring the frontier of ML, Robotics, and AI.
 author:             Vish Sangale
 baseurl:            ""
 url:                "https://vishsangale.github.io"
@@ -10,7 +9,8 @@ twitter_username:
 github_username: vishsangale
 facebook_username:
 instagram_username:
-linkedin_username:
+linkedin_username: vishsangale
+substack_url: "https://recsysml.substack.com/"
 
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
