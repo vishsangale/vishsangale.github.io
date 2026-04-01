@@ -5,14 +5,14 @@ categories: [Machine Learning, LLMs]
 tags: [gpt-2, pytorch, transformers, optimization, cuda]
 math: true
 image:
-  path: /assets/img/posts/01.jpg
+  path: /assets/img/posts/gpt2-modernization.png
 ---
 
 The original GPT-2 architecture, released in 2019, remains the bedrock of modern NLP. However, the "standard" recipe for training Transformers has shifted dramatically. In this project, I rebuilt the GPT-2 (124M) architecture from scratch, incorporating modern improvements like **RoPE**, **RMSNorm**, and **SwiGLU**, while optimizing the training pipeline for 2025-era hardware.
 
-The result? A **3.1x increase in throughput**—from ~29,000 to over **92,000 tokens per second**—on a single 16GB GPU.
+The result? A **3.1x increase in throughput**—from ~31,000 to over **96,000 tokens per second**—on a single 16GB GPU.
 
-## 1. Architectural Modernization
+## 1. Architectural Modernization: Stability and Scaling
 
 Training a model in 2025 with 2019 architectural choices is leaving performance and stability on the table. My implementation introduces several "state-of-the-art" flags:
 
@@ -28,23 +28,29 @@ Additionally, I swapped the GeLU activation for **SwiGLU**:
 $$\text{SwiGLU}(x) = \text{SiLU}(xW) \otimes xV$$
 My ablation tests on **FineWeb-Edu** showed that while SwiGLU increases the FLOPs per step, it leads to faster convergence and a lower final validation loss (4.04 vs. 4.42 for the baseline).
 
-## 2. Pushing the Limits of 16GB VRAM
+## 2. Throughput Optimization Path: Pushing 16GB VRAM
 
-A naive implementation of GPT-2 124M often suffers from Out-of-Memory (OOM) errors even at moderate batch sizes. The 92k tokens/sec throughput was achieved through a series of "hardware-aware" optimizations:
+The 96k tokens/sec throughput was achieved through a systematic "hardware-aware" optimization path. On a single 16GB GPU, a naive implementation of GPT-2 124M often suffers from Out-of-Memory (OOM) errors even at moderate batch sizes.
 
-| Optimization | Batch Size | Speed (tokens/sec) | Improvement |
-| :--- | :--- | :--- | :--- |
-| **Initial Naive** | 4 | ~29,000 | 1.0x |
-| **+ DataLoader & Fused AdamW** | 4 | ~63,500 | 2.2x |
-| **+ Flash Attention 2** | 8 | ~67,500 | 2.3x |
-| **+ torch.compile** | **16** | **~92,000+** | **3.1x** |
+| Optimization Level | Batch Size | Throughput (tok/sec) | Speedup |
+| :--- | :---: | :---: | :---: |
+| **Baseline (2019 Recipe)** | 4 | ~31,000 | 1.0x |
+| **+ Fused AdamW & TF32** | 4 | ~63,500 | 2.05x |
+| **+ Flash Attention 2** | 8 | ~68,600 | 2.21x |
+| **+ torch.compile & BF16** | **16** | **~96,000+** | **3.10x** |
 
-### Flash Attention 2 & Vocabulary Padding
-By utilizing `torch.nn.functional.scaled_dot_product_attention`, I leveraged **Flash Attention 2**, avoiding the $O(N^2)$ memory bottleneck. Furthermore, I padded the vocabulary to **50,304** (the nearest multiple of 64). This ensures GPU tile alignment during the final linear layer, maximizing Tensor Core utilization.
+### Implementation "Craft": TF32 and Vocabulary Padding
+A subtle but critical optimization involved enabling TensorFloat-32 (TF32) for matmuls and padding the vocabulary to **50,304** (the nearest multiple of 64). 
+```python
+# Enabling TF32 for 2025 hardware
+torch.backends.cuda.matmul.allow_tf32 = True 
+torch.backends.cudnn.allow_tf32 = True 
+```
+This ensures GPU tile alignment during the final linear layer, maximizing Tensor Core utilization and providing a significant speedup in the logit calculation without sacrificing precision like pure FP16 would.
 
 ## 3. Results: Tiny Shakespeare vs. FineWeb
 
-An interesting "human" insight discovered during training: when testing on a small dataset like **Tiny Shakespeare**, the modernized architecture (with SwiGLU and RoPE) overfit significantly faster.
+An interesting "scientist" insight discovered during training: when testing on a small dataset like **Tiny Shakespeare**, the modernized architecture (with SwiGLU and RoPE) overfit significantly faster.
 
 | Dataset | Experiment | Step | Train Loss | Val Loss |
 | :--- | :--- | :--- | :--- | :--- |
@@ -53,16 +59,16 @@ An interesting "human" insight discovered during training: when testing on a sma
 | **FineWeb-Edu** | Vanilla | 2000 | 4.2383 | 4.4223 |
 | **FineWeb-Edu** | Modernized | 2000 | **3.7576** | **4.0407** |
 
-On a 10B token sample of **FineWeb**, the modernized model achieved an **~8.6% improvement** in validation loss.
+On a 10B token sample of **FineWeb**, the modernized model achieved an **~8.6% improvement** in validation loss. The learning curves confirm that architectural efficiency is a force multiplier for data scale.
 
 ### Qualitative Check: Generated Samples
 Starting with *"The internet is"*:
-- **Vanilla Model:** *"The internet is usually done when the user's homeware is allowed..."* (Contains minor hallucinations like 'homeware').
-- **Modernized Model:** *"The internet is the key to the growth of a business and the growth of his business..."* (Perfect grammar, highly coherent).
+- **Vanilla Model:** *"The internet is usually done when the user's homeware is allowed..."* (Contains minor hallucinations).
+- **Modernized Model:** *"The internet is the key to the growth of a business and the growth of his business..."* (Highly coherent and grammatically perfect).
 
 ## Conclusion
 
-Rebuilding GPT-2 in 2025 proves that even with the same parameter count, a model's performance is deeply tied to the "craft" of its implementation. The learning curves (available in `assets/loss_curve.png`) show that architectural efficiency is a force multiplier for data scale.
+Rebuilding GPT-2 in 2025 proves that even with the same parameter count, a model's performance is deeply tied to the "craft" of its implementation. Software optimizations (`torch.compile`) and more efficient architectures (SwiGLU) have effectively tripled the power of our existing hardware.
 
 ***
 
