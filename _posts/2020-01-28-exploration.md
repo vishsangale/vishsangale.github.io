@@ -28,7 +28,7 @@ image:
 
 <p>As we push deeper into the frontiers of AI, we must remember the fragility and beauty of what we are trying to augment. Like the Earth viewed from space, the human mind is a delicate, warm, living object. Our work in AI is not about replacing it, but about cherishing and expanding its capabilities.</p>
 
-<img class="img-fluid" src="/img/posts/03.jpg" alt="Exploration">
+<img class="img-fluid" src="/assets/img/posts/03.jpg" alt="Exploration">
 <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
 
 <p>The mission continues. The five-year missions have turned into decades of research, and the goal remains: to explore strange new architectures, to seek out new forms of intelligence, and to never settle for the status quo.</p>
