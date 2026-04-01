@@ -6,7 +6,7 @@ order: 3
 
 <style>
   #avatar img {
-    object-position: center 5% !important;
+    object-position: center 15% !important;
     object-fit: cover !important;
   }
 </style>
