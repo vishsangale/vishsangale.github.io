@@ -1,7 +1,7 @@
 ---
 title: Photography
 icon: fas fa-camera
-order: 4
+order: 3
 ---
 
 Through the lens, I explore the world's fleeting beauty, from the deep cosmos to the textures of everyday life. Each photograph is a moment captured, a story told in light and shadow.
