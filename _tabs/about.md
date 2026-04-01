@@ -4,7 +4,7 @@ icon: fas fa-info-circle
 order: 1
 ---
 
-<p>I am a <strong>Staff Machine Learning Researcher at Meta</strong>, where I focus on pushing the boundaries of AI, Large Language Models (LLMs), and Recommendation Systems. My work is driven by a deep interest in bridging the gap between Neuroscience and Deep Learning to build more robust and intelligent systems.</p>
+<p>I am a <strong>Staff Machine Learning Researcher at Meta</strong>, where I focus on large-scale AI architectures and Recommendation Systems. While my core work centers on the engineering and research challenges of modern LLMs, I am driven by a long-term fascination with how computational models can eventually mirror the robustness and efficiency of biological systems.</p>
 
 <p>My technical expertise spans Machine Learning, Robotics, Computer Vision, and the future of AI architectures. I am fascinated by how we can translate biological intelligence into computational models that solve complex, real-world problems.</p>
 
