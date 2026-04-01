@@ -5,7 +5,7 @@ categories: [Machine Learning, Recommendation Systems]
 tags: [recsys, generative-ai, plum, transformers, pytorch, rq-vae, vector-quantization]
 math: true
 image:
-  path: /assets/img/posts/plum-architecture.png
+  path: /assets/img/posts/01.jpg
 ---
 
 The landscape of recommendation systems (RecSys) is undergoing a paradigm shift. We are moving away from traditional "score-and-rank" models toward **Generative Retrieval**, where an LLM directly generates the identity of the next recommended item as a sequence of discrete tokens.

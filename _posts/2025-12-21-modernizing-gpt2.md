@@ -5,7 +5,7 @@ categories: [Machine Learning, LLMs]
 tags: [gpt-2, pytorch, transformers, optimization, cuda]
 math: true
 image:
-  path: /assets/img/posts/gpt2-modernization.png
+  path: /assets/img/posts/02.jpg
 ---
 
 The original GPT-2 architecture, released in 2019, remains the bedrock of modern NLP. However, the "standard" recipe for training Transformers has shifted dramatically. In this project, I rebuilt the GPT-2 (124M) architecture from scratch, incorporating modern improvements like **RoPE**, **RMSNorm**, and **SwiGLU**, while optimizing the training pipeline for 2025-era hardware.
