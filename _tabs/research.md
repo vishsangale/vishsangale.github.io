@@ -4,6 +4,14 @@ icon: fas fa-flask
 order: 2
 ---
 
+<style>
+  #avatar img {
+    object-position: center 10% !important;
+    object-fit: cover !important;
+    transform: scale(0.5) !important;
+  }
+</style>
+
 ## Research Interests
 My research is focused on pushing the boundaries of artificial intelligence through the following areas:
 - **Large Language Models (LLMs):** Developing more efficient, robust, and capable foundation models.

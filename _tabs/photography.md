@@ -4,6 +4,14 @@ icon: fas fa-camera
 order: 3
 ---
 
+<style>
+  #avatar img {
+    object-position: center 10% !important;
+    object-fit: cover !important;
+    transform: scale(0.5) !important;
+  }
+</style>
+
 Through the lens, I explore the world's fleeting beauty, from the deep cosmos to the textures of everyday life. Each photograph is a moment captured, a story told in light and shadow.
 
 ## The Collection

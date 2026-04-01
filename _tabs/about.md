@@ -4,6 +4,14 @@ icon: fas fa-info-circle
 order: 1
 ---
 
+<style>
+  #avatar img {
+    object-position: center 10% !important;
+    object-fit: cover !important;
+    transform: scale(0.5) !important;
+  }
+</style>
+
 <p>I am a <strong>Staff Machine Learning Researcher at Meta</strong>, where I focus on large-scale AI architectures and Recommendation Systems. While my core work centers on the engineering and research challenges of modern LLMs, I am driven by a long-term fascination with how computational models can eventually mirror the robustness and efficiency of biological systems.</p>
 
 <p>My technical expertise spans Machine Learning, Robotics, Computer Vision, and the future of AI architectures. I am fascinated by how we can translate biological intelligence into computational models that solve complex, real-world problems.</p>
