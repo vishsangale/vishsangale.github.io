@@ -3,6 +3,7 @@ title: Regularization
 date: 2020-04-14 12:00:00 -0400
 categories: [ML]
 tags: [regularization, math, machine-learning]
+math: true
 ---
 
 Regularization is a fundamental technique in machine learning used to prevent overfitting by penalizing the complexity of a model. By adding a regularization term to the loss function, we encourage the model to learn simpler patterns that generalize better to unseen data.

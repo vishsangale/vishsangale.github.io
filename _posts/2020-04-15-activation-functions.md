@@ -3,6 +3,7 @@ title: Activation Functions
 date: 2020-04-15 12:00:00 -0400
 categories: [ML]
 tags: [deep-learning, theory]
+math: true
 ---
 
 Activation functions are the mathematical "gates" that decide whether a neuron should fire or stay dormant. They introduce non-linearity into a neural network, allowing it to learn complex, non-linear relationships in data.
