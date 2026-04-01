@@ -6,9 +6,8 @@ order: 2
 
 <style>
   #avatar img {
-    object-position: center 10% !important;
+    object-position: center 5% !important;
     object-fit: cover !important;
-    transform: scale(0.75) !important;
   }
 </style>
 
