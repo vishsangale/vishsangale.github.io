@@ -231,9 +231,28 @@ aside.margin-note {
   background: var(--vs-accent-2); margin-right: 8px; vertical-align: middle; opacity: 0.8;
 }
 
-/* Hide Chirpy's default topbar for a cleaner look */
-#topbar-wrapper { display: none !important; }
-#main-wrapper { padding-top: 0 !important; }
+/* Hide Chirpy's default components we don't want */
+#panel-wrapper, #topbar-wrapper #breadcrumb, #topbar-wrapper #sidebar-trigger, #topbar-wrapper #search-input { 
+  display: none !important; 
+}
+
+/* Fix topbar wrapper to accommodate our custom menu */
+#topbar-wrapper {
+  height: auto !important;
+  padding: 0 !important;
+  border-bottom: 0 !important;
+  background: transparent !important;
+}
+
+#main-wrapper { 
+  padding-top: 0 !important; 
+  max-width: 100% !important;
+}
+
+/* Ensure the main container expands since the panel is gone */
+.container {
+  max-width: 1200px !important;
+}
 
 /* Dark mode image polish */
 [data-theme='dark'] {
