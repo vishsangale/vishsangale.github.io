@@ -1,0 +1,195 @@
+---
+layout: default
+refactor: true
+---
+
+{% include lang.html %}
+
+{% assign all_pinned = site.posts | where: 'pin', 'true' %}
+{% assign all_normal = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
+
+<style>
+/* ---------- Editorial home — overrides Chirpy chrome ---------- */
+.vs-hero {
+  padding: 32px 0 40px;
+  border-bottom: 1px solid var(--main-border-color);
+  margin-bottom: 36px;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 56px;
+  align-items: end;
+}
+@media (max-width: 880px) { .vs-hero { grid-template-columns: 1fr; gap: 24px; } }
+
+.vs-hero h1 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-style: italic; font-weight: 350;
+  font-size: clamp(40px, 7vw, 88px);
+  line-height: 0.98; letter-spacing: -0.02em;
+  margin: 0; color: var(--text-color);
+}
+.vs-hero h1 .amp { color: #d97c3a; font-style: italic; }
+.vs-hero h1 .name {
+  display: block;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-style: normal; font-weight: 400;
+  font-size: 13px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text-muted-color);
+  margin-top: 24px;
+}
+.vs-hero .bio {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 17px; line-height: 1.65;
+  color: var(--text-muted-color); max-width: 38ch;
+  text-wrap: pretty;
+}
+.vs-hero .bio strong { color: var(--text-color); }
+
+.vs-cat-strip {
+  display: flex; gap: 22px; flex-wrap: wrap;
+  padding: 16px 0 24px;
+  border-bottom: 1px solid var(--main-border-color);
+  margin-bottom: 36px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px; letter-spacing: 0.04em;
+  color: var(--text-muted-color);
+}
+.vs-cat-strip .label { opacity: 0.6; }
+.vs-cat-strip a { color: var(--text-muted-color); text-decoration: none; }
+.vs-cat-strip a:hover { color: #d97c3a; }
+
+.vs-section-h {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-style: italic; font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 40px);
+  letter-spacing: -0.01em;
+  margin: 8px 0 24px;
+  color: var(--text-color);
+}
+
+/* Post rows — replace Chirpy cards */
+#post-list .card-wrapper { background: transparent; border: 0; box-shadow: none; }
+#post-list .card-wrapper + .card-wrapper { margin-top: 0; }
+#post-list .card-wrapper .post-preview {
+  display: grid !important;
+  grid-template-columns: 130px 1fr 180px;
+  gap: 32px;
+  padding: 26px 0;
+  border-top: 1px solid var(--main-border-color);
+  align-items: baseline;
+  text-decoration: none;
+  transition: padding 0.3s ease;
+  border-radius: 0 !important;
+}
+#post-list .card-wrapper:last-child .post-preview { border-bottom: 1px solid var(--main-border-color); }
+#post-list .card-wrapper .post-preview:hover { padding-left: 14px; }
+
+#post-list .card-wrapper .post-preview > .col-md-5,
+#post-list .card-wrapper .post-preview > .col-md-7,
+#post-list .card-wrapper .post-preview > .col-md-12 { all: unset; display: contents; }
+
+#post-list .card-wrapper img { display: none !important; }
+
+#post-list .card-body { padding: 0 !important; order: 2; }
+#post-list .card-title {
+  font-family: "Source Serif 4", Georgia, serif !important;
+  font-size: clamp(20px, 2.2vw, 24px) !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  color: var(--heading-color) !important;
+  margin: 0 0 8px !important;
+}
+#post-list .card-text {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-style: italic;
+  font-size: 16px; line-height: 1.5;
+  color: var(--text-muted-color);
+  max-width: 60ch;
+}
+#post-list .post-meta {
+  order: 1;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px; letter-spacing: 0.04em;
+  color: var(--text-muted-color);
+  align-self: baseline !important;
+}
+#post-list .post-meta .me-auto { padding-top: 4px; }
+</style>
+
+<section class="vs-hero">
+  <h1>
+    Notes from a quiet lab on
+    <span class="amp">&amp;</span> craft, capacity, constraints.
+    <span class="name">Vish Sangale · est. 2013</span>
+  </h1>
+  <p class="bio">
+    <strong>Staff ML Researcher at Meta.</strong> Large-scale AI architectures
+    and recommendation systems &mdash; and the long, slow project of
+    teaching computation to mirror the robustness of biology.
+  </p>
+</section>
+
+<div class="vs-cat-strip">
+  <span class="label">topics:</span>
+  <a href="{{ '/categories/machine-learning/' | relative_url }}">recsys</a>
+  <a href="{{ '/categories/llms/' | relative_url }}">large language models</a>
+  <a href="{{ '/categories/recommendation-systems/' | relative_url }}">reinforcement learning</a>
+  <a href="{{ '/categories/' | relative_url }}">causal inference</a>
+  <a href="{{ '/categories/' | relative_url }}">computer vision</a>
+  <a href="{{ '/categories/' | relative_url }}">robotics</a>
+</div>
+
+<h2 class="vs-section-h">Recent thinking.</h2>
+
+{% assign posts = '' | split: '' %}
+{% assign visible_start = paginator.page | minus: 1 | times: paginator.per_page %}
+{% assign visible_end = visible_start | plus: paginator.per_page %}
+
+{% if all_pinned.size > visible_start %}
+  {% if all_pinned.size > visible_end %}
+    {% assign pinned_size = paginator.per_page %}
+  {% else %}
+    {% assign pinned_size = all_pinned.size | minus: visible_start %}
+  {% endif %}
+  {% for i in (visible_start..all_pinned.size) limit: pinned_size %}
+    {% assign posts = posts | push: all_pinned[i] %}
+  {% endfor %}
+{% else %}
+  {% assign pinned_size = 0 %}
+{% endif %}
+
+{% assign normal_size = paginator.posts | size | minus: pinned_size %}
+{% if normal_size > 0 %}
+  {% if pinned_size > 0 %}
+    {% assign normal_start = 0 %}
+  {% else %}
+    {% assign normal_start = visible_start | minus: all_pinned.size %}
+  {% endif %}
+  {% assign normal_end = normal_start | plus: normal_size | minus: 1 %}
+  {% for i in (normal_start..normal_end) %}
+    {% assign posts = posts | push: all_normal[i] %}
+  {% endfor %}
+{% endif %}
+
+<div id="post-list" class="flex-grow-1 px-xl-1">
+  {% for post in posts %}
+    <article class="card-wrapper card">
+      <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
+        <div class="col-md-12">
+          <div class="card-body d-flex flex-column">
+            <div class="post-meta">
+              <i class="far fa-calendar fa-fw me-1"></i>
+              {% include datetime.html date=post.date lang=lang %}
+            </div>
+            <h1 class="card-title">{{ post.title }}</h1>
+            <div class="card-text content"><p>{% include post-summary.html %}</p></div>
+          </div>
+        </div>
+      </a>
+    </article>
+  {% endfor %}
+</div>
+
+{% if paginator.total_pages > 1 %}
+  {% include post-paginator.html %}
+{% endif %}
