@@ -1,0 +1,14 @@
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="{{ '/' | relative_url }}" class="brand">
+      <span class="brand-dot"></span>
+      <span>vish_sangale</span>
+    </a>
+    <nav class="nav">
+      <a href="{{ '/' | relative_url }}" {% if page.layout == 'home' %}class="is-active"{% endif %}>Home</a>
+      <a href="{{ '/research/' | relative_url }}" {% if page.title == 'Research' %}class="is-active"{% endif %}>Research</a>
+      <a href="{{ '/posts/' | relative_url }}" {% if page.layout == 'archives' or page.layout == 'post' %}class="is-active"{% endif %}>Notes</a>
+      <a href="{{ '/photography/' | relative_url }}" {% if page.title == 'Photography' %}class="is-active"{% endif %}>Photography</a>
+    </nav>
+  </div>
+</header>
