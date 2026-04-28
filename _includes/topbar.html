@@ -13,6 +13,7 @@
       </div>
       
       <div class="nav-social">
+        <a href="https://recsysml.substack.com/" target="_blank" rel="noopener" aria-label="Substack"><i class="fas fa-paper-plane"></i></a>
         <a href="https://github.com/vishsangale" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://linkedin.com/in/vishsangale" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         <button id="mode-toggle" class="theme-toggle" aria-label="Toggle theme">
@@ -28,10 +29,11 @@
   const modeToggle = document.getElementById('mode-toggle');
   const html = document.documentElement;
 
-  // Function to set the mode
   function setMode(mode) {
     html.setAttribute('data-mode', mode);
     localStorage.setItem('mode', mode);
+    // Trigger Chirpy's internal theme refresh if it exists
+    window.dispatchEvent(new Event('theme-change'));
   }
 
   // Initial check
