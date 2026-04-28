@@ -5,6 +5,29 @@ order: 3
 ---
 
 <style>
+  /* contact-sheet section toggle */
+  .layout-bar {
+    display: flex; gap: 8px; align-items: center; padding: 22px 0;
+    border-bottom: 1px solid var(--main-border-color);
+  }
+  .layout-bar .label {
+    font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-muted-color); margin-right: 16px;
+  }
+  .layout-btn {
+    font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.04em;
+    padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--main-border-color); color: var(--text-muted-color);
+    background: transparent; cursor: pointer;
+  }
+  .layout-btn.active {
+    background: var(--text-color); color: var(--main-bg); border-color: var(--text-color);
+  }
+  .layout-bar .count {
+    margin-left: auto; font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: 0.06em; color: var(--text-muted-color);
+  }
+
   /* Mosaic grid */
   .gallery {
     padding: 48px 0;
@@ -62,11 +85,22 @@ order: 3
   .span-8 { grid-column: span 8; aspect-ratio: 16/9; }
   .span-12 { grid-column: span 12; aspect-ratio: 21/9; }
 
+  /* contact-sheet alt layout */
+  .gallery.contact { grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .gallery.contact .ph { grid-column: span 1 !important; aspect-ratio: 1/1 !important; }
+
   @media (max-width: 880px) {
     .gallery { grid-template-columns: repeat(6, 1fr); gap: 8px; }
     .ph { grid-column: span 6 !important; aspect-ratio: 4/3 !important; }
   }
 </style>
+
+<div class="layout-bar">
+  <span class="label">layout:</span>
+  <button class="layout-btn active" data-l="mosaic">mosaic</button>
+  <button class="layout-btn" data-l="contact">contact sheet</button>
+  <span class="count">18 frames · 2017–2024</span>
+</div>
 
 <div class="gallery" id="gallery">
   <figure class="ph span-6">
@@ -154,3 +188,15 @@ order: 3
   Most of these were taken with patience, a tripod, and very long
   stacks. Click a frame for the full-resolution version.
 </p>
+
+<script>
+(function () {
+  const buttons = document.querySelectorAll(".layout-btn");
+  const gallery = document.getElementById("gallery");
+  buttons.forEach(b => b.addEventListener("click", () => {
+    buttons.forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    gallery.classList.toggle("contact", b.dataset.l === "contact");
+  }));
+})();
+</script>

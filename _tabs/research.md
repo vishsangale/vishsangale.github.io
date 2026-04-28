@@ -20,6 +20,27 @@ order: 2
     letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted-color);
   }
 
+  /* Filter strip */
+  .filter-strip {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    padding: 28px 0; border-bottom: 1px solid var(--main-border-color);
+  }
+  .filter-strip .label {
+    font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-muted-color); margin-right: 16px;
+  }
+  .filter-btn {
+    font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.04em;
+    padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--main-border-color); color: var(--text-muted-color);
+    background: transparent; cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .filter-btn:hover { color: var(--text-color); border-color: var(--text-color); }
+  .filter-btn.active {
+    background: var(--text-color); color: var(--main-bg); border-color: var(--text-color);
+  }
+
   /* Topic groupings */
   .group {
     padding: 64px 0 16px;
@@ -97,6 +118,16 @@ order: 2
   <div class="stat"><div class="num">9</div><div class="label">open implementations</div></div>
   <div class="stat"><div class="num">13<span style="font-size:0.5em">yr</span></div><div class="label">since first publication</div></div>
 </section>
+
+<div class="filter-strip">
+  <span class="label">filter:</span>
+  <button class="filter-btn active" data-f="all">all</button>
+  <button class="filter-btn" data-f="llm">llms</button>
+  <button class="filter-btn" data-f="recsys">recsys</button>
+  <button class="filter-btn" data-f="causal">causal</button>
+  <button class="filter-btn" data-f="cv">computer vision</button>
+  <button class="filter-btn" data-f="robotics">robotics</button>
+</div>
 
 <!-- ============ GROUP: RECSYS ============ -->
 <section class="group" data-tag="recsys">
@@ -221,3 +252,18 @@ order: 2
   Long-form notes that don't (yet) belong in a paper live next door, in
   <a class="link" href="{{ '/posts/' | relative_url }}" style="color: var(--heading-color); font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.04em; text-decoration: none;">/notes&nbsp;→</a>
 </p>
+
+<script>
+(function () {
+  const buttons = document.querySelectorAll(".filter-btn");
+  const groups = document.querySelectorAll(".group");
+  buttons.forEach(b => b.addEventListener("click", () => {
+    buttons.forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    const f = b.dataset.f;
+    groups.forEach(g => {
+      g.style.display = (f === "all" || g.dataset.tag === f) ? "" : "none";
+    });
+  }));
+})();
+</script>
