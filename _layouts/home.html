@@ -166,6 +166,21 @@ refactor: true
   }
 </style>
 
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="{{ '/' | relative_url }}" class="brand">
+      <span class="brand-dot"></span>
+      <span>vish_sangale</span>
+    </a>
+    <nav class="nav">
+      <a href="{{ '/' | relative_url }}" class="is-active">Home</a>
+      <a href="{{ '/research/' | relative_url }}">Research</a>
+      <a href="{{ '/posts/' | relative_url }}">Notes</a>
+      <a href="{{ '/photography/' | relative_url }}">Photography</a>
+    </nav>
+  </div>
+</header>
+
 <section class="vs-hero">
   <div>
     <h1>
@@ -272,6 +287,35 @@ refactor: true
     <a class="btn btn-ghost" href="{{ '/photography/' | relative_url }}">Open the collection →</a>
   </div>
 </section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-colophon">
+      <h4>Colophon</h4>
+      <p>Set in Source Serif 4 and JetBrains Mono.
+      Hand-built, no trackers. Long-form thinking on machine learning,
+      recommendation systems, and the small ways biology keeps embarrassing
+      our architectures.</p>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a class="link" href="https://github.com/vishsangale">github</a></li>
+        <li><a class="link" href="https://www.linkedin.com/in/vishsangale">linkedin</a></li>
+        <li><a class="link" href="https://recsysml.substack.com/">substack</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>This site</h4>
+      <ul>
+        <li><a class="link" href="{{ '/' | relative_url }}">Home</a></li>
+        <li><a class="link" href="{{ '/research/' | relative_url }}">Research</a></li>
+        <li><a class="link" href="{{ '/posts/' | relative_url }}">Notes</a></li>
+        <li><a class="link" href="{{ '/photography/' | relative_url }}">Photography</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
 
 <script>
 (function () {
