@@ -5,10 +5,45 @@
       <span>vish_sangale</span>
     </a>
     <nav class="nav">
-      <a href="{{ '/' | relative_url }}" {% if page.layout == 'home' %}class="is-active"{% endif %}>Home</a>
-      <a href="{{ '/research/' | relative_url }}" {% if page.title == 'Research' %}class="is-active"{% endif %}>Research</a>
-      <a href="{{ '/posts/' | relative_url }}" {% if page.layout == 'archives' or page.layout == 'post' %}class="is-active"{% endif %}>Notes</a>
-      <a href="{{ '/photography/' | relative_url }}" {% if page.title == 'Photography' %}class="is-active"{% endif %}>Photography</a>
+      <div class="nav-links">
+        <a href="{{ '/' | relative_url }}" {% if page.layout == 'home' %}class="is-active"{% endif %}>Home</a>
+        <a href="{{ '/research/' | relative_url }}" {% if page.title == 'Research' %}class="is-active"{% endif %}>Research</a>
+        <a href="{{ '/posts/' | relative_url }}" {% if page.layout == 'archives' or page.layout == 'post' %}class="is-active"{% endif %}>Notes</a>
+        <a href="{{ '/photography/' | relative_url }}" {% if page.title == 'Photography' %}class="is-active"{% endif %}>Photography</a>
+      </div>
+      
+      <div class="nav-social">
+        <a href="https://github.com/vishsangale" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/vishsangale" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <button id="mode-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <span class="dot"></span>
+        </button>
+      </div>
     </nav>
   </div>
 </header>
+
+<script>
+(function() {
+  const modeToggle = document.getElementById('mode-toggle');
+  const html = document.documentElement;
+
+  // Function to set the mode
+  function setMode(mode) {
+    html.setAttribute('data-mode', mode);
+    localStorage.setItem('mode', mode);
+  }
+
+  // Initial check
+  const savedMode = localStorage.getItem('mode') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  setMode(savedMode);
+
+  if (modeToggle) {
+    modeToggle.addEventListener('click', () => {
+      const currentMode = html.getAttribute('data-mode');
+      const nextMode = currentMode === 'dark' ? 'light' : 'dark';
+      setMode(nextMode);
+    });
+  }
+})();
+</script>

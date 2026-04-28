@@ -30,7 +30,7 @@ a.link:hover, article .content a:not(.btn):hover {
 
 /* ---------- Top bar (New Design Port) ---------- */
 .topbar {
-  position: sticky; top: 0; z-index: 50;
+  position: sticky; top: 0; z-index: 1000;
   background: var(--main-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -39,7 +39,7 @@ a.link:hover, article .content a:not(.btn):hover {
 }
 .topbar-inner {
   display: flex; align-items: center; justify-content: space-between;
-  height: 56px;
+  height: 64px;
   max-width: 1180px;
   margin: 0 auto;
   padding: 0 clamp(20px, 4vw, 56px);
@@ -57,7 +57,8 @@ a.link:hover, article .content a:not(.btn):hover {
   background: var(--vs-accent); border-radius: 999px;
   box-shadow: 0 0 0 3px rgba(217, 124, 58, 0.2);
 }
-.nav { display: flex; align-items: center; gap: 28px; }
+.nav { display: flex; align-items: center; gap: 48px; }
+.nav-links { display: flex; align-items: center; gap: 28px; }
 .nav a {
   font-family: var(--vs-mono);
   font-size: 12px;
@@ -73,6 +74,24 @@ a.link:hover, article .content a:not(.btn):hover {
   content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
   height: 2px; background: var(--vs-accent);
 }
+
+.nav-social { display: flex; align-items: center; gap: 20px; }
+.nav-social a { color: var(--text-muted-color); font-size: 14px; transition: color 0.2s; }
+.nav-social a:hover { color: var(--text-color); }
+
+.theme-toggle {
+  background: transparent; border: 1px solid var(--main-border-color);
+  width: 32px; height: 18px; border-radius: 999px; cursor: pointer;
+  position: relative; transition: all 0.2s; padding: 0;
+}
+.theme-toggle .dot {
+  position: absolute; left: 3px; top: 3px;
+  width: 10px; height: 10px; border-radius: 999px;
+  background: var(--text-muted-color);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+[data-mode='dark'] .theme-toggle .dot { left: 17px; background: var(--vs-accent); }
+[data-mode='dark'] .theme-toggle { border-color: var(--vs-accent); }
 
 /* ---------- Footer (New Design Port) ---------- */
 .footer {
@@ -94,125 +113,87 @@ a.link:hover, article .content a:not(.btn):hover {
 .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
 .footer-colophon { max-width: 360px; line-height: 1.6; }
 
+/* ---------- Layout Structure Polish ---------- */
+#sidebar { display: none !important; }
+
+#main-wrapper { 
+  margin-left: 0 !important;
+  padding-top: 0 !important; 
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.container {
+  max-width: 1180px !important;
+  padding: 0 clamp(20px, 4vw, 56px) !important;
+}
+
+/* Hide Chirpy defaults */
+#panel-wrapper, #topbar-wrapper, #search-results, .sidebar-trigger { 
+  display: none !important; 
+}
+
 /* ---------- Post-detail editorial typography ---------- */
 #main-wrapper article {
-  > header {
-    border-bottom: 0 !important;
-    margin-bottom: 24px !important;
-  }
+  > header { border-bottom: 0 !important; margin-bottom: 24px !important; }
   
   > header > h1[data-toc-skip] {
     font-family: var(--vs-serif) !important;
-    font-style: italic;
-    font-weight: 350 !important;
+    font-style: italic; font-weight: 350 !important;
     font-size: clamp(40px, 5.6vw, 72px) !important;
-    line-height: 1.02 !important;
-    letter-spacing: -0.018em !important;
-    color: var(--heading-color) !important;
-    margin-bottom: 0.5em !important;
+    line-height: 1.02 !important; letter-spacing: -0.018em !important;
+    color: var(--heading-color) !important; margin-bottom: 0.5em !important;
     font-variation-settings: "opsz" 60;
   }
 
-  /* article dek / description */
   .post-desc {
-    font-family: var(--vs-serif) !important;
-    font-style: normal !important;
-    font-size: 22px !important;
-    line-height: 1.55 !important;
-    color: var(--text-muted-color) !important;
-    max-width: 42em !important;
-    margin-bottom: 36px !important;
-    text-wrap: pretty;
+    font-family: var(--vs-serif) !important; font-style: normal !important;
+    font-size: 22px !important; line-height: 1.55 !important;
+    color: var(--text-muted-color) !important; max-width: 42em !important;
+    margin-bottom: 36px !important; text-wrap: pretty;
   }
 
   .post-meta {
-    font-family: var(--vs-mono) !important;
-    font-size: 11px !important;
-    letter-spacing: 0.08em !important;
-    text-transform: uppercase !important;
-    color: var(--text-muted-color) !important;
-    padding: 18px 0 !important;
+    font-family: var(--vs-mono) !important; font-size: 11px !important;
+    letter-spacing: 0.08em !important; text-transform: uppercase !important;
+    color: var(--text-muted-color) !important; padding: 18px 0 !important;
     border-top: 1px solid var(--main-border-color) !important;
     border-bottom: 1px solid var(--main-border-color) !important;
-    margin-bottom: 56px !important;
-    display: flex; gap: 24px; flex-wrap: wrap;
-    
+    margin-bottom: 56px !important; display: flex; gap: 24px; flex-wrap: wrap;
     div, span, a, i { font-family: var(--vs-mono) !important; font-size: 11px !important; font-style: normal !important; }
   }
 
   .content {
-    font-family: var(--vs-serif) !important;
-    font-size: 19px !important;
-    line-height: 1.72 !important;
-    max-width: 720px !important;
-    color: var(--text-color);
-
+    font-family: var(--vs-serif) !important; font-size: 19px !important;
+    line-height: 1.72 !important; max-width: 720px !important; color: var(--text-color);
     p, ul, ol { margin-bottom: 24px !important; text-wrap: pretty; }
-
     > p:first-of-type::first-letter {
-      font-family: var(--vs-serif);
-      font-style: italic; font-weight: 400; float: left;
-      font-size: 4.6em; line-height: 0.9; margin: 0.06em 0.08em 0 -0.04em;
-      color: var(--vs-accent);
+      font-family: var(--vs-serif); font-style: italic; font-weight: 400; float: left;
+      font-size: 4.6em; line-height: 0.9; margin: 0.06em 0.08em 0 -0.04em; color: var(--vs-accent);
     }
-
     h2 {
-      font-family: var(--vs-serif) !important;
-      font-style: italic; font-weight: 400;
-      font-size: clamp(28px, 3.4vw, 40px) !important;
-      letter-spacing: -0.01em !important;
-      margin-top: 56px !important; margin-bottom: 18px !important;
-      color: var(--heading-color);
+      font-family: var(--vs-serif) !important; font-style: italic; font-weight: 400;
+      font-size: clamp(28px, 3.4vw, 40px) !important; letter-spacing: -0.01em !important;
+      margin-top: 56px !important; margin-bottom: 18px !important; color: var(--heading-color);
     }
-
     h3 {
-      font-family: var(--vs-serif) !important;
-      font-weight: 600 !important; font-style: normal !important;
-      font-size: 22px !important; margin: 32px 0 12px !important;
-      color: var(--heading-color);
+      font-family: var(--vs-serif) !important; font-weight: 600 !important; font-style: normal !important;
+      font-size: 22px !important; margin: 32px 0 12px !important; color: var(--heading-color);
     }
-
     blockquote {
-      border-left: 3px solid var(--vs-accent) !important;
-      padding: 14px 20px !important;
-      margin: 28px 0 !important;
-      background: var(--card-bg) !important;
-      font-family: var(--vs-serif) !important;
-      font-style: normal !important;
-      font-size: 18px !important;
-      line-height: 1.6 !important;
-      color: var(--text-color) !important;
-      max-width: none !important;
-
-      &::before { content: none !important; }
+      border-left: 3px solid var(--vs-accent) !important; padding: 14px 20px !important;
+      margin: 28px 0 !important; background: var(--card-bg) !important;
+      font-family: var(--vs-serif) !important; font-style: normal !important;
+      font-size: 18px !important; line-height: 1.6 !important; color: var(--text-color) !important;
+      max-width: none !important; &::before { content: none !important; }
     }
-    
-    /* Tables from new-design */
     table {
       width: 100% !important; border-collapse: collapse !important; margin: 28px 0 !important;
       font-family: var(--vs-mono) !important; font-size: 13px !important;
-      
       th, td { padding: 12px 14px !important; border-bottom: 1px solid var(--main-border-color) !important; text-align: left !important; }
       th { font-size: 11px !important; letter-spacing: 0.06em !important; text-transform: uppercase !important; color: var(--text-muted-color) !important; font-weight: 500 !important; border-bottom: 1px solid var(--text-muted-color) !important; }
     }
   }
-}
-
-/* ---------- Aside / Margin Notes Port ---------- */
-aside.margin-note {
-  font-family: var(--vs-mono); font-size: 12px; line-height: 1.55;
-  color: var(--text-muted-color); padding-left: 24px;
-  border-left: 1px solid var(--main-border-color);
-  margin: 24px 0;
-  
-  .label { display: block; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--vs-accent); margin-bottom: 6px; }
-}
-
-/* ---------- Sidebar Tweaks ---------- */
-#sidebar {
-  border-right: 1px solid var(--main-border-color) !important;
-  .site-title a { font-family: var(--vs-serif) !important; font-style: italic; font-weight: 350 !important; letter-spacing: -0.01em; font-size: 1.6rem !important; }
-  .site-subtitle { font-family: var(--vs-mono); font-size: 9px !important; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.7; }
 }
 
 /* Post list hover arrow */
@@ -231,34 +212,7 @@ aside.margin-note {
   background: var(--vs-accent-2); margin-right: 8px; vertical-align: middle; opacity: 0.8;
 }
 
-/* Hide Chirpy's default components we don't want */
-#panel-wrapper, #topbar-wrapper #breadcrumb, #topbar-wrapper #sidebar-trigger, #topbar-wrapper #search-input { 
-  display: none !important; 
-}
-
-/* Fix topbar wrapper to accommodate our custom menu */
-#topbar-wrapper {
-  height: auto !important;
-  padding: 0 !important;
-  border-bottom: 0 !important;
-  background: transparent !important;
-}
-
-#main-wrapper { 
-  padding-top: 0 !important; 
-  max-width: 100% !important;
-}
-
-/* Ensure the main container expands since the panel is gone */
-.container {
-  max-width: 1200px !important;
-}
-
 /* Dark mode image polish */
-[data-theme='dark'] {
+[data-mode='dark'] {
   img:not(.emoji) { filter: brightness(.85) contrast(1.1); transition: filter 0.3s ease; &:hover { filter: brightness(1); } }
 }
-
-/* Reading Progress Bar Port */
-.progress-bar { position: fixed; top: 56px; left: 0; right: 0; height: 2px; background: transparent; z-index: 49; }
-.progress-fill { height: 100%; width: 0%; background: var(--vs-accent); transition: width 0.1s linear; }
