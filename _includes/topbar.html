@@ -27,31 +27,18 @@
 <script>
 (function() {
   const modeToggle = document.getElementById('mode-toggle');
-  const html = document.documentElement;
-
-  // Use the exact key Chirpy expects: 'pref-theme'
-  const STORAGE_KEY = 'pref-theme';
-
-  function setMode(mode) {
-    // Chirpy uses both data-mode attribute AND a class/attribute change to trigger CSS
-    html.setAttribute('data-mode', mode);
-    localStorage.setItem(STORAGE_KEY, mode);
-    
-    // Most Chirpy versions also look for this specific event or property
-    if (window.modeWatcher) {
-      window.modeToggle.flipMode();
-    }
-  }
-
-  // Initial Sync
-  const savedMode = localStorage.getItem(STORAGE_KEY) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  html.setAttribute('data-mode', savedMode);
-
   if (modeToggle) {
     modeToggle.addEventListener('click', () => {
-      const currentMode = html.getAttribute('data-mode') || 'light';
-      const nextMode = currentMode === 'dark' ? 'light' : 'dark';
-      setMode(nextMode);
+      if (typeof Theme !== 'undefined') {
+        Theme.flip();
+      } else {
+        // Fallback if Theme is not yet loaded
+        const html = document.documentElement;
+        const currentMode = html.getAttribute('data-mode') || 'light';
+        const nextMode = currentMode === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-mode', nextMode);
+        sessionStorage.setItem('mode', nextMode);
+      }
     });
   }
 })();
