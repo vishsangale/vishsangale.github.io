@@ -25,20 +25,29 @@
 </header>
 
 <script>
+/**
+ * Dark/Light mode toggle for Chirpy Editorial
+ */
 (function() {
-  const modeToggle = document.getElementById('mode-toggle');
-  if (modeToggle) {
-    modeToggle.addEventListener('click', () => {
-      if (typeof Theme !== 'undefined') {
-        Theme.flip();
-      } else {
-        // Fallback if Theme is not yet loaded
-        const html = document.documentElement;
-        const currentMode = html.getAttribute('data-mode') || 'light';
-        const nextMode = currentMode === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-mode', nextMode);
-        sessionStorage.setItem('mode', nextMode);
-      }
+  const toggle = document.getElementById('mode-toggle');
+  const html = document.documentElement;
+
+  function toggleMode() {
+    if (typeof Theme !== 'undefined' && typeof Theme.flip === 'function') {
+      Theme.flip();
+    } else {
+      // Manual fallback if Chirpy Theme engine isn't ready
+      const currentMode = html.getAttribute('data-mode') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const nextMode = currentMode === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-mode', nextMode);
+      sessionStorage.setItem('mode', nextMode);
+    }
+  }
+
+  if (toggle) {
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleMode();
     });
   }
 })();
