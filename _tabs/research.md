@@ -219,5 +219,5 @@ order: 2
 
 <p style="font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.5; color: var(--text-muted-color); max-width: 50ch; text-wrap: pretty; margin-top: 72px;">
   Long-form notes that don't (yet) belong in a paper live next door, in
-  <a class="link" href="{{ '/tabs/posts/' | relative_url }}" style="color: var(--heading-color); font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.04em; text-decoration: none;">/notes&nbsp;→</a>
+  <a class="link" href="{{ '/posts/' | relative_url }}" style="color: var(--heading-color); font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.04em; text-decoration: none;">/notes&nbsp;→</a>
 </p>
