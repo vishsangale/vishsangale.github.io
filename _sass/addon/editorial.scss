@@ -35,7 +35,7 @@ a.link:hover, article .content a:not(.btn):hover {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--main-border-color);
-  height: auto !important; /* Fix Chirpy collapsing */
+  height: auto !important;
 }
 .topbar-inner {
   display: flex; align-items: center; justify-content: space-between;
@@ -73,16 +73,6 @@ a.link:hover, article .content a:not(.btn):hover {
   content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
   height: 2px; background: var(--vs-accent);
 }
-.theme-toggle {
-  font-family: var(--vs-mono); font-size: 11px; letter-spacing: 0.08em;
-  background: transparent; border: 1px solid var(--main-border-color);
-  color: var(--text-muted-color);
-  padding: 6px 12px; border-radius: 999px; cursor: pointer;
-  display: inline-flex; align-items: center; gap: 6px;
-  transition: all 0.2s;
-}
-.theme-toggle:hover { border-color: var(--text-color); color: var(--text-color); }
-.theme-toggle .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--text-color); }
 
 /* ---------- Footer (New Design Port) ---------- */
 .footer {
@@ -106,86 +96,116 @@ a.link:hover, article .content a:not(.btn):hover {
 
 /* ---------- Post-detail editorial typography ---------- */
 #main-wrapper article {
-  /* article header */
+  > header {
+    border-bottom: 0 !important;
+    margin-bottom: 24px !important;
+  }
+  
   > header > h1[data-toc-skip] {
     font-family: var(--vs-serif) !important;
     font-style: italic;
     font-weight: 350 !important;
-    font-size: clamp(38px, 6vw, 68px) !important;
+    font-size: clamp(40px, 5.6vw, 72px) !important;
     line-height: 1.02 !important;
-    letter-spacing: -0.025em !important;
+    letter-spacing: -0.018em !important;
     color: var(--heading-color) !important;
     margin-bottom: 0.5em !important;
     font-variation-settings: "opsz" 60;
   }
 
-  > header .post-desc {
-    font-family: var(--vs-serif);
-    font-style: italic;
-    font-size: 20px;
-    line-height: 1.5;
+  /* article dek / description */
+  .post-desc {
+    font-family: var(--vs-serif) !important;
+    font-style: normal !important;
+    font-size: 22px !important;
+    line-height: 1.55 !important;
     color: var(--text-muted-color) !important;
-    max-width: 60ch;
-    margin-bottom: 1.2em;
+    max-width: 42em !important;
+    margin-bottom: 36px !important;
+    text-wrap: pretty;
   }
 
-  > header .post-meta {
-    font-family: var(--vs-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .post-meta {
+    font-family: var(--vs-mono) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
     color: var(--text-muted-color) !important;
+    padding: 18px 0 !important;
+    border-top: 1px solid var(--main-border-color) !important;
+    border-bottom: 1px solid var(--main-border-color) !important;
+    margin-bottom: 56px !important;
+    display: flex; gap: 24px; flex-wrap: wrap;
+    
+    div, span, a, i { font-family: var(--vs-mono) !important; font-size: 11px !important; font-style: normal !important; }
   }
 
-  /* article body */
   .content {
     font-family: var(--vs-serif) !important;
-    font-size: 20px !important;
-    line-height: 1.7 !important;
-    max-width: 66ch;
+    font-size: 19px !important;
+    line-height: 1.72 !important;
+    max-width: 720px !important;
     color: var(--text-color);
 
-    p { text-wrap: pretty; margin-bottom: 1.6em; }
+    p, ul, ol { margin-bottom: 24px !important; text-wrap: pretty; }
 
     > p:first-of-type::first-letter {
       font-family: var(--vs-serif);
       font-style: italic; font-weight: 400; float: left;
-      font-size: 5.4em; line-height: 0.85; padding: 6px 14px 0 0;
+      font-size: 4.6em; line-height: 0.9; margin: 0.06em 0.08em 0 -0.04em;
       color: var(--vs-accent);
     }
 
     h2 {
       font-family: var(--vs-serif) !important;
       font-style: italic; font-weight: 400;
-      font-size: clamp(28px, 3.5vw, 38px) !important;
-      letter-spacing: -0.015em !important;
-      margin-top: 2.5em !important; margin-bottom: 0.8em !important;
+      font-size: clamp(28px, 3.4vw, 40px) !important;
+      letter-spacing: -0.01em !important;
+      margin-top: 56px !important; margin-bottom: 18px !important;
       color: var(--heading-color);
     }
 
     h3 {
-      font-family: var(--vs-mono) !important;
-      font-size: 11px !important;
-      letter-spacing: 0.16em !important;
-      text-transform: uppercase !important;
-      font-weight: 500 !important;
-      color: var(--text-muted-color) !important;
-      margin-top: 3em !important;
+      font-family: var(--vs-serif) !important;
+      font-weight: 600 !important; font-style: normal !important;
+      font-size: 22px !important; margin: 32px 0 12px !important;
+      color: var(--heading-color);
     }
 
     blockquote {
-      border-left: 0 !important; padding: 0 !important; margin: 2.5em 0 !important;
+      border-left: 3px solid var(--vs-accent) !important;
+      padding: 14px 20px !important;
+      margin: 28px 0 !important;
+      background: var(--card-bg) !important;
       font-family: var(--vs-serif) !important;
-      font-style: italic; font-size: 24px !important; line-height: 1.5;
-      color: var(--text-color) !important; max-width: 52ch;
+      font-style: normal !important;
+      font-size: 18px !important;
+      line-height: 1.6 !important;
+      color: var(--text-color) !important;
+      max-width: none !important;
 
-      &::before {
-        content: '“'; display: block; font-size: 90px; line-height: 0.5;
-        color: var(--vs-accent); margin-bottom: 24px;
-        font-family: var(--vs-serif);
-      }
+      &::before { content: none !important; }
+    }
+    
+    /* Tables from new-design */
+    table {
+      width: 100% !important; border-collapse: collapse !important; margin: 28px 0 !important;
+      font-family: var(--vs-mono) !important; font-size: 13px !important;
+      
+      th, td { padding: 12px 14px !important; border-bottom: 1px solid var(--main-border-color) !important; text-align: left !important; }
+      th { font-size: 11px !important; letter-spacing: 0.06em !important; text-transform: uppercase !important; color: var(--text-muted-color) !important; font-weight: 500 !important; border-bottom: 1px solid var(--text-muted-color) !important; }
     }
   }
+}
+
+/* ---------- Aside / Margin Notes Port ---------- */
+aside.margin-note {
+  font-family: var(--vs-mono); font-size: 12px; line-height: 1.55;
+  color: var(--text-muted-color); padding-left: 24px;
+  border-left: 1px solid var(--main-border-color);
+  margin: 24px 0;
+  
+  .label { display: block; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--vs-accent); margin-bottom: 6px; }
 }
 
 /* ---------- Sidebar Tweaks ---------- */
@@ -211,7 +231,7 @@ a.link:hover, article .content a:not(.btn):hover {
   background: var(--vs-accent-2); margin-right: 8px; vertical-align: middle; opacity: 0.8;
 }
 
-/* Hide Chirpy's default breadcrumbs and search in the topbar if we are using our custom one */
+/* Hide Chirpy's default topbar for a cleaner look */
 #topbar-wrapper { display: none !important; }
 #main-wrapper { padding-top: 0 !important; }
 
@@ -219,3 +239,7 @@ a.link:hover, article .content a:not(.btn):hover {
 [data-theme='dark'] {
   img:not(.emoji) { filter: brightness(.85) contrast(1.1); transition: filter 0.3s ease; &:hover { filter: brightness(1); } }
 }
+
+/* Reading Progress Bar Port */
+.progress-bar { position: fixed; top: 56px; left: 0; right: 0; height: 2px; background: transparent; z-index: 49; }
+.progress-fill { height: 100%; width: 0%; background: var(--vs-accent); transition: width 0.1s linear; }
