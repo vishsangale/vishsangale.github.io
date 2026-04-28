@@ -21,7 +21,7 @@ refactor: true
   @media (max-width: 880px) { .vs-hero { grid-template-columns: 1fr; gap: 32px; } }
 
   .vs-hero h1 {
-    font-family: "Source Serif 4", Georgia, serif;
+    font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif;
     font-weight: 350; font-style: italic;
     font-size: clamp(48px, 8.6vw, 124px);
     line-height: 0.96; letter-spacing: -0.02em;
@@ -32,12 +32,12 @@ refactor: true
     display: block; font-style: normal; font-weight: 400;
     font-size: clamp(20px, 1.6vw, 24px); letter-spacing: 0.06em;
     text-transform: uppercase; color: var(--text-muted-color);
-    font-family: "JetBrains Mono", monospace; margin-top: 28px;
+    font-family: "JetBrains Mono", ui-monospace, monospace; margin-top: 28px;
   }
 
   .vs-hero-meta { display: flex; flex-direction: column; gap: 22px; }
   .vs-hero-bio {
-    font-family: "Source Serif 4", Georgia, serif;
+    font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif;
     font-size: 18px; line-height: 1.6;
     color: var(--text-muted-color); max-width: 38ch; text-wrap: pretty;
   }
@@ -93,7 +93,7 @@ refactor: true
   }
   .vs-now-item:last-child { border-bottom: 0; padding-bottom: 0; }
   .vs-now-when { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--text-muted-color); padding-top: 4px; }
-  .vs-now-what { font-family: "Source Serif 4", Georgia, serif; font-size: 18px; line-height: 1.5; color: var(--text-color); }
+  .vs-now-what { font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif; font-size: 18px; line-height: 1.5; color: var(--text-color); }
   .vs-now-what .blip {
     display: inline-block; width: 7px; height: 7px; border-radius: 999px;
     background: #d97c3a; margin-right: 8px;
@@ -107,7 +107,7 @@ refactor: true
 
   /* Post list */
   .vs-section-h {
-    font-family: "Source Serif 4", Georgia, serif; font-style: italic; font-weight: 400;
+    font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif; font-style: italic; font-weight: 400;
     font-size: clamp(32px, 4vw, 48px); margin: 64px 0 36px; color: var(--heading-color);
   }
   #post-list .card-wrapper { background: transparent; border: 0; box-shadow: none; margin: 0; }
@@ -121,20 +121,20 @@ refactor: true
   #post-list .post-preview:hover { padding-left: 16px; }
   #post-list .post-preview:hover .card-title { color: #d97c3a !important; }
 
-  .vs-post-num { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--text-muted-color); }
-  .vs-post-date { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--text-muted-color); }
+  .vs-post-num { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: var(--text-muted-color); }
+  .vs-post-date { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: var(--text-muted-color); }
   #post-list .card-body { padding: 0 !important; }
   #post-list .card-title {
-    font-family: "Source Serif 4", Georgia, serif !important;
+    font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif !important;
     font-size: clamp(20px, 2.2vw, 26px) !important; font-weight: 500 !important;
     line-height: 1.25 !important; color: var(--heading-color) !important; margin: 0 !important;
   }
   #post-list .card-text {
-    font-family: "Source Serif 4", Georgia, serif; font-style: italic;
+    font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif; font-style: italic;
     font-size: 16px; line-height: 1.5; color: var(--text-muted-color);
     margin-top: 8px !important; max-width: 60ch;
   }
-  .vs-post-cat { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--text-muted-color); text-align: right; text-transform: uppercase; }
+  .vs-post-cat { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; color: var(--text-muted-color); text-align: right; text-transform: uppercase; }
 
   /* Photography feature */
   .vs-feature {
@@ -144,12 +144,12 @@ refactor: true
   .vs-feature-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
   .vs-feature:hover .vs-feature-img img { transform: scale(1.03); }
   .vs-feature-text h3 {
-    font-family: "Source Serif 4", Georgia, serif; font-style: italic; font-weight: 400;
+    font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif; font-style: italic; font-weight: 400;
     font-size: clamp(28px, 3.6vw, 44px); margin: 0 0 16px; line-height: 1.1; color: var(--heading-color);
   }
-  .vs-feature-text p { font-family: "Source Serif 4", Georgia, serif; font-size: 18px; line-height: 1.6; color: var(--text-muted-color); margin-bottom: 24px; }
+  .vs-feature-text p { font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif; font-size: 18px; line-height: 1.6; color: var(--text-muted-color); margin-bottom: 24px; }
   .vs-feature-meta {
-    font-family: "JetBrains Mono", monospace; font-size: 11px; text-transform: uppercase;
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; text-transform: uppercase;
     color: var(--text-muted-color); display: flex; gap: 12px; align-items: center; margin-bottom: 18px;
   }
   .vs-feature-meta::before { content: ""; width: 28px; height: 1px; background: var(--main-border-color); }

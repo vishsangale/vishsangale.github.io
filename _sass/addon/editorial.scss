@@ -6,15 +6,15 @@
 
 /* Google fonts — load these in <head> via _includes/head.html or
    site.css if you don't already have them: */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=Inter+Tight:wght@400;500;600;700&display=swap');
 
 /* ---------- Post-detail editorial typography ---------- */
 #main-wrapper article {
   /* article header */
   > header > h1[data-toc-skip] {
-    font-family: "Source Serif 4", Georgia, serif !important;
+    font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif !important;
     font-style: italic;
-    font-weight: 400 !important;
+    font-weight: 350 !important;
     font-size: clamp(36px, 5.6vw, 64px) !important;
     line-height: 1.05 !important;
     letter-spacing: -0.015em !important;
@@ -40,12 +40,15 @@
 
   /* article body */
   .content {
-    font-family: "Source Serif 4", Georgia, serif !important;
+    font-family: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif !important;
     font-size: 19px !important;
     line-height: 1.7 !important;
     max-width: 68ch;
 
-    p { text-wrap: pretty; }
+    p { 
+      text-wrap: pretty;
+      margin-bottom: 1.5em;
+    }
 
     /* Drop cap on the first paragraph after the header */
     > p:first-of-type::first-letter {
@@ -99,8 +102,6 @@
         margin-bottom: 16px;
       }
     }
-
-    /* code blocks pick up Chirpy's existing styling — leave alone */
   }
 }
 
@@ -108,7 +109,7 @@
 #sidebar .site-title a {
   font-family: "Source Serif 4", Georgia, serif !important;
   font-style: italic;
-  font-weight: 400 !important;
+  font-weight: 350 !important;
   letter-spacing: -0.01em;
 }
 
@@ -119,11 +120,17 @@
   text-transform: uppercase;
 }
 
+#sidebar #navwrapper ul li a {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
 /* ---------- Page (tab) layouts ---------- */
 .dynamic-title {
   font-family: "Source Serif 4", Georgia, serif !important;
   font-style: italic;
-  font-weight: 400 !important;
+  font-weight: 350 !important;
   font-size: clamp(40px, 6vw, 64px) !important;
   letter-spacing: -0.015em !important;
   margin-bottom: 0.8em !important;
@@ -135,4 +142,14 @@
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 12px;
   letter-spacing: 0.04em;
+}
+
+/* ---------- General Sans overrides for metadata/ui ---------- */
+.post-meta, .post-tag, .categories, .tags, .post-navigation {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+/* Use Inter Tight for some UI elements if needed, though mono is preferred for technical vibe */
+.label, .chip, .btn {
+  font-family: "JetBrains Mono", monospace;
 }
