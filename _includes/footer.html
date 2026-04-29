@@ -1,11 +1,9 @@
-<footer class="footer">
-  <div class="footer-inner">
+<footer class="footer" data-shell="footer">
+  <div class="shell footer-inner">
     <div class="footer-colophon">
-      <h4>Colophon</h4>
-      <p>Set in Source Serif 4 and JetBrains Mono.
-      Hand-built, no trackers. Long-form thinking on machine learning,
-      recommendation systems, and the small ways biology keeps embarrassing
-      our architectures.</p>
+      <h4>About</h4>
+      <p>Long-form thinking on machine learning, recommendation systems,
+      and the small ways biology keeps embarrassing our architectures.</p>
     </div>
     <div>
       <h4>Elsewhere</h4>
@@ -13,6 +11,7 @@
         <li><a class="link" href="https://github.com/vishsangale">github</a></li>
         <li><a class="link" href="https://www.linkedin.com/in/vishsangale">linkedin</a></li>
         <li><a class="link" href="https://recsysml.substack.com/">substack</a></li>
+        <li><a class="link" href="mailto:hello@example.com">email</a></li>
       </ul>
     </div>
     <div>
@@ -20,9 +19,13 @@
       <ul>
         <li><a class="link" href="{{ '/' | relative_url }}">Home</a></li>
         <li><a class="link" href="{{ '/research/' | relative_url }}">Research</a></li>
-        <li><a class="link" href="{{ '/posts/' | relative_url }}">Notes</a></li>
+        <li><a class="link" href="{{ '/notes/' | relative_url }}">Notes</a></li>
         <li><a class="link" href="{{ '/photography/' | relative_url }}">Photography</a></li>
+        <li><a class="link" href="{{ '/about/' | relative_url }}">About</a></li>
       </ul>
     </div>
+  </div>
+  <div class="shell" style="margin-top:48px; font-family: var(--mono); font-size: 11px; color: var(--muted); display:flex; justify-content:space-between; gap: 16px; flex-wrap:wrap;">
+    <span>© 2013–{{ site.time | date: "%Y" }} Vishwanath Sangale</span>
   </div>
 </footer>

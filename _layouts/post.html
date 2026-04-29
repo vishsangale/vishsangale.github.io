@@ -1,0 +1,129 @@
+---
+layout: default
+---
+<style>
+  /* progress bar */
+  .progress {
+    position: fixed; top: 56px; left: 0; right: 0; height: 2px;
+    background: transparent; z-index: 49;
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: var(--accent);
+    transition: width 0.1s linear;
+  }
+
+  /* Article frame */
+  .article {
+    display: grid;
+    grid-template-columns: 1fr min(860px, 100%) 1fr;
+    column-gap: 32px;
+    padding: 64px 0 48px;
+  }
+  .article > * { grid-column: 2; }
+
+  .article-eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 18px;
+    display: flex; gap: 16px; align-items: center;
+  }
+  .article-eyebrow .dot { width: 4px; height: 4px; background: var(--accent); border-radius: 999px; }
+
+  .article-title {
+    font-family: var(--serif); font-style: italic; font-weight: 350;
+    font-size: clamp(40px, 5.6vw, 72px);
+    line-height: 1.02; letter-spacing: -0.018em; margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  .article-dek {
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+    color: var(--ink-2); max-width: 38em; text-wrap: pretty;
+    margin: 0 0 36px;
+  }
+  .article-meta {
+    display: flex; gap: 24px; flex-wrap: wrap; padding: 18px 0;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+    color: var(--ink-2); margin-bottom: 56px;
+  }
+  .article-meta b { color: var(--ink); font-weight: 500; }
+
+  .article p,
+  .article ul,
+  .article ol {
+    font-family: var(--serif); font-size: 19px; line-height: 1.72;
+    color: var(--ink); margin: 0 0 24px; text-wrap: pretty;
+  }
+  .article p:first-of-type::first-letter {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: 4.6em; line-height: 0.9; float: left;
+    margin: 0.06em 0.08em 0 -0.04em; color: var(--accent);
+  }
+  .article h2 {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1.1; letter-spacing: -0.01em;
+    margin: 56px 0 18px;
+  }
+  .article h2 .num {
+    font-family: var(--mono); font-style: normal; font-size: 12px;
+    letter-spacing: 0.14em; color: var(--muted); display: block;
+    margin-bottom: 8px;
+  }
+  .article h3 {
+    font-family: var(--serif); font-weight: 600; font-style: normal;
+    font-size: 22px; margin: 32px 0 12px;
+  }
+  .article ul, .article ol { padding-left: 24px; }
+  .article li { margin-bottom: 8px; }
+  .article strong { font-weight: 600; color: var(--ink); }
+  .article em { font-style: italic; color: var(--ink-2); }
+  .article a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule); }
+
+  /* Code blocks */
+  .highlight {
+    font-family: var(--mono); font-size: 14px; background: var(--bg-2);
+    padding: 16px; border-radius: 6px; overflow-x: auto; margin: 24px 0;
+  }
+
+  @media (max-width: 1100px) {
+    .article { grid-template-columns: 1fr min(720px, 100%) 1fr; }
+  }
+</style>
+
+<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+<main class="shell">
+  <article class="article">
+    <div class="article-eyebrow">
+      <span>NOTE</span><span class="dot"></span><span>{{ page.date | date: "%B %Y" }}</span>
+    </div>
+
+    <h1 class="article-title">{{ page.title }}</h1>
+
+    {% if page.description %}
+    <p class="article-dek">{{ page.description }}</p>
+    {% endif %}
+
+    <div class="article-meta">
+      <span><b>Published</b> · {{ page.date | date: "%d %b %Y" }}</span>
+      {% if page.tags %}<span><b>Topics</b> · {{ page.tags | join: ', ' }}</span>{% endif %}
+    </div>
+
+    {{ content }}
+  </article>
+</main>
+
+<script>
+(function () {
+  const fill = document.getElementById("progressFill");
+  function update() {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    fill.style.width = pct + "%";
+  }
+  document.addEventListener("scroll", update, { passive: true });
+  update();
+})();
+</script>

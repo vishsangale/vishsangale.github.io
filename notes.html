@@ -1,0 +1,75 @@
+---
+layout: default
+title: Notes
+---
+<style>
+  .notes-head {
+    padding: 80px 0 40px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .notes-head h1 {
+    font-family: var(--serif); font-style: italic; font-weight: 350;
+    font-size: clamp(48px, 7.6vw, 104px);
+    line-height: 0.98; letter-spacing: -0.02em; margin: 0;
+  }
+  .notes-list {
+    padding: 48px 0;
+  }
+  
+  .post-row {
+    display: grid; grid-template-columns: 80px 130px 1fr 180px; gap: 32px;
+    padding: 28px 0; border-top: 1px solid var(--rule); align-items: baseline;
+    transition: padding 0.3s ease; position: relative;
+  }
+  .post-row:last-child { border-bottom: 1px solid var(--rule); }
+  .post-row:hover { padding-left: 16px; }
+  .post-row::before {
+    content: "→"; position: absolute; left: -8px; top: 50%; transform: translateY(-50%);
+    font-family: var(--mono); color: var(--accent); opacity: 0; transition: opacity 0.2s, left 0.3s;
+  }
+  .post-row:hover::before { opacity: 1; left: 0; }
+
+  .post-num { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+  .post-date { font-family: var(--mono); font-size: 12px; color: var(--ink-2); letter-spacing: 0.02em; }
+  .post-title {
+    font-family: var(--serif); font-size: clamp(20px, 2.2vw, 26px); font-weight: 500;
+    line-height: 1.25; color: var(--ink); text-wrap: balance;
+  }
+  .post-title .dek {
+    display: block; font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: 16px; line-height: 1.5; color: var(--ink-2); margin-top: 8px; max-width: 60ch;
+  }
+  .post-cat {
+    font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: right;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .post-cat .tag-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 999px;
+    background: var(--accent-2); margin-right: 6px; vertical-align: middle;
+  }
+  
+  @media (max-width: 880px) {
+    .post-row { grid-template-columns: 60px 1fr; gap: 12px; }
+    .post-row .post-date, .post-row .post-cat { display: none; }
+  }
+</style>
+
+<main class="shell">
+  <section class="notes-head">
+    <h1>All Notes.</h1>
+  </section>
+
+  <section class="notes-list">
+    {% for post in site.posts %}
+    <a class="post-row" href="{{ post.url | relative_url }}">
+      <span class="post-num">N° {{ forloop.length | minus: forloop.index | plus: 1 | prepend: '00' | slice: -2, 2 }}</span>
+      <span class="post-date">{{ post.date | date: "%d · %b · %Y" | upcase }}</span>
+      <div class="post-title">
+        {{ post.title }}
+        <span class="dek">{{ post.description | default: post.excerpt | strip_html | truncatewords: 25 }}</span>
+      </div>
+      <span class="post-cat"><span class="tag-dot"></span>{{ post.tags | first | default: 'Note' }}</span>
+    </a>
+    {% endfor %}
+  </section>
+</main>

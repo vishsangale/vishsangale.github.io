@@ -1,4 +1,363 @@
 ---
-layout: home
-# Index page
+layout: default
 ---
+<style>
+  /* ---------- Homepage-only ---------- */
+  .hero {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 64px;
+    align-items: end;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 350; font-style: italic;
+    font-size: clamp(48px, 8.6vw, 124px); line-height: 0.96; letter-spacing: -0.02em;
+    margin: 0; color: var(--ink); font-variation-settings: "opsz" 60;
+  }
+  .hero h1 .ampersand {
+    font-family: var(--serif); font-style: italic; color: var(--accent); font-weight: 400;
+  }
+  .hero h1 .name-line {
+    display: block; font-style: normal; font-weight: 400;
+    font-size: clamp(20px, 1.6vw, 24px); letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted); font-family: var(--mono);
+    margin-top: 28px;
+  }
+  .hero-meta {
+    display: flex; flex-direction: column; gap: 22px;
+  }
+  .hero-bio {
+    font-family: var(--serif); font-size: 18px; line-height: 1.6;
+    color: var(--ink-2); text-wrap: pretty; max-width: 38ch;
+  }
+  .hero-bio strong { color: var(--ink); font-weight: 600; }
+
+  .hero-stack {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+
+  .rope {
+    margin-top: 56px; padding: 18px 22px; border: 1px solid var(--rule);
+    border-radius: 10px; display: flex; align-items: center; gap: 18px;
+    background: var(--bg-2); font-family: var(--mono); font-size: 12px; color: var(--ink-2);
+  }
+  .rope canvas { display: block; }
+  .rope-text { line-height: 1.55; }
+  .rope-text b { color: var(--ink); font-weight: 500; }
+  .rope-text em { font-family: var(--serif); font-style: italic; color: var(--accent); }
+
+  /* ---------- Now panel ---------- */
+  .now {
+    padding: 48px 0 24px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;
+    align-items: start; border-bottom: 1px solid var(--rule);
+  }
+  .now h2 {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--muted); margin: 8px 0 0;
+  }
+  .now-list { display: grid; gap: 22px; }
+  .now-item {
+    display: grid; grid-template-columns: 100px 1fr; gap: 24px;
+    padding-bottom: 22px; border-bottom: 1px dashed var(--rule);
+  }
+  .now-item:last-child { border-bottom: 0; padding-bottom: 0; }
+  .now-when {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+    color: var(--muted); padding-top: 4px;
+  }
+  .now-what {
+    font-family: var(--serif); font-size: 18px; line-height: 1.5; color: var(--ink);
+  }
+  .now-what .blip {
+    display: inline-block; width: 7px; height: 7px; border-radius: 999px;
+    background: var(--accent); margin-right: 8px;
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent); }
+    50% { box-shadow: 0 0 0 8px color-mix(in oklab, var(--accent) 0%, transparent); }
+  }
+  .now-tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* ---------- Recent posts ---------- */
+  .posts-section { padding: 64px 0 24px; }
+  .posts-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 36px;
+  }
+  .posts-head h2 {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(32px, 4vw, 48px); margin: 0; letter-spacing: -0.01em;
+  }
+  .posts-head .more {
+    font-family: var(--mono); font-size: 12px; color: var(--ink-2); letter-spacing: 0.04em;
+  }
+  .posts-head .more:hover { color: var(--accent); }
+
+  .post-row {
+    display: grid; grid-template-columns: 80px 130px 1fr 180px; gap: 32px;
+    padding: 28px 0; border-top: 1px solid var(--rule); align-items: baseline;
+    transition: padding 0.3s ease; position: relative;
+  }
+  .post-row:last-child { border-bottom: 1px solid var(--rule); }
+  .post-row:hover { padding-left: 16px; }
+  .post-row::before {
+    content: "→"; position: absolute; left: -8px; top: 50%; transform: translateY(-50%);
+    font-family: var(--mono); color: var(--accent); opacity: 0; transition: opacity 0.2s, left 0.3s;
+  }
+  .post-row:hover::before { opacity: 1; left: 0; }
+
+  .post-num { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+  .post-date { font-family: var(--mono); font-size: 12px; color: var(--ink-2); letter-spacing: 0.02em; }
+  .post-title {
+    font-family: var(--serif); font-size: clamp(20px, 2.2vw, 26px); font-weight: 500;
+    line-height: 1.25; color: var(--ink); text-wrap: balance;
+  }
+  .post-title .dek {
+    display: block; font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: 16px; line-height: 1.5; color: var(--ink-2); margin-top: 8px; max-width: 60ch;
+  }
+  .post-cat {
+    font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: right;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .post-cat .tag-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 999px;
+    background: var(--accent-2); margin-right: 6px; vertical-align: middle;
+  }
+
+  /* ---------- Featured ---------- */
+  .feature {
+    padding: 96px 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+  }
+  .feature-img {
+    aspect-ratio: 4 / 5; border-radius: 6px; position: relative; overflow: hidden; background: #050810;
+  }
+  .feature-img img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .feature:hover .feature-img img { transform: scale(1.03); }
+  .feature-img .placeholder-tag {
+    position: absolute; left: 16px; bottom: 16px; font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; color: rgba(255,255,255,0.85); text-transform: uppercase; z-index: 2;
+  }
+  .feature-text h3 {
+    font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(28px, 3.6vw, 44px);
+    margin: 0 0 16px; line-height: 1.1; letter-spacing: -0.01em;
+  }
+  .feature-text p {
+    font-family: var(--serif); font-size: 18px; line-height: 1.6; color: var(--ink-2);
+    max-width: 44ch; margin: 0 0 24px;
+  }
+  .feature-meta {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); display: flex; gap: 12px; align-items: center; margin-bottom: 18px;
+  }
+  .feature-meta::before { content: ""; width: 28px; height: 1px; background: var(--rule); }
+
+  .cat-strip {
+    margin-top: 40px; padding: 24px 0; display: flex; gap: 24px; flex-wrap: wrap;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 12px; color: var(--ink-2); letter-spacing: 0.04em;
+  }
+  .cat-strip .label { color: var(--muted); }
+  .cat-strip a { color: var(--ink-2); }
+  .cat-strip a:hover { color: var(--accent); }
+
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero-meta { order: 2; }
+    .now { grid-template-columns: 1fr; gap: 24px; }
+    .now-item { grid-template-columns: 80px 1fr; gap: 16px; }
+    .post-row { grid-template-columns: 60px 1fr; gap: 12px; }
+    .post-row .post-date, .post-row .post-cat { display: none; }
+    .feature { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+
+<main>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <h1>
+          Notes from a<br />
+          quiet lab on<br />
+          <span class="ampersand">&amp;</span> craft, capacity,<br />
+          constraints.
+          <span class="name-line">Vish Sangale</span>
+        </h1>
+      </div>
+
+      <div class="hero-meta">
+        <p class="hero-bio">
+          <strong>Staff ML Researcher at Meta.</strong> I work on
+          large-scale AI architectures and recommendation systems &mdash;
+          and on the long, slow project of teaching computation to
+          mirror the robustness of biology.
+        </p>
+        <div class="hero-stack">
+          <a class="btn" href="{{ '/research/' | relative_url }}">
+            <span>Read research</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <a class="btn btn-ghost" href="{{ '/photography/' | relative_url }}">
+            <span>Photography</span>
+          </a>
+        </div>
+
+        <div class="rope" aria-hidden="true">
+          <canvas id="ropeCanvas" width="84" height="84"></canvas>
+          <div class="rope-text">
+            <b>RoPE</b>, idling.<br />
+            <em>q</em> and <em>k</em>, rotating in place.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="shell">
+      <div class="cat-strip">
+        <span class="label">topics:</span>
+        <a href="#">recsys</a>
+        <a href="#">large language models</a>
+        <a href="#">reinforcement learning</a>
+        <a href="#">causal inference</a>
+        <a href="#">computer vision</a>
+        <a href="#">robotics</a>
+        <a href="#">neuroscience &amp; ai</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell now">
+    <div>
+      <h2>/ now</h2>
+      <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 8px;">
+        what's loaded into RAM,<br />updated when it changes
+      </p>
+    </div>
+    <div class="now-list">
+      <div class="now-item">
+        <span class="now-when">this week</span>
+        <div>
+          <div class="now-what"><span class="blip"></span>Scaling Slate-Q to a real catalog. Watching variance climb past slate=12.</div>
+          <div class="now-tags">
+            <span class="chip">rl-recsys</span>
+            <span class="chip">slate-q</span>
+            <span class="chip">ablations</span>
+          </div>
+        </div>
+      </div>
+      <div class="now-item">
+        <span class="now-when">this month</span>
+        <div>
+          <div class="now-what">Reading on hierarchical semantic IDs &amp; codebook collapse. Inference-time entropy keeps eating my catalog.</div>
+          <div class="now-tags">
+            <span class="chip">plum</span>
+            <span class="chip">rq-vae</span>
+          </div>
+        </div>
+      </div>
+      <div class="now-item">
+        <span class="now-when">on the bench</span>
+        <div>
+          <div class="now-what">Bonsai-LLM, training a 1B at home. Quality &gt; quantity, capacity matters, constraints are the point.</div>
+          <div class="now-tags">
+            <span class="chip">bonsai-llm</span>
+            <span class="chip">gemma-3</span>
+            <span class="chip">fineweb-edu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell posts-section" id="notes">
+    <div class="posts-head">
+      <h2>Recent thinking.</h2>
+      <a href="{{ '/notes/' | relative_url }}" class="more">view archive →</a>
+    </div>
+
+    {% for post in site.posts limit:5 %}
+    <a class="post-row" href="{{ post.url | relative_url }}">
+      <span class="post-num">N° {{ forloop.length | minus: forloop.index | plus: 1 | prepend: '00' | slice: -2, 2 }}</span>
+      <span class="post-date">{{ post.date | date: "%d · %b · %Y" | upcase }}</span>
+      <div class="post-title">
+        {{ post.title }}
+        <span class="dek">{{ post.description | default: post.excerpt | strip_html | truncatewords: 25 }}</span>
+      </div>
+      <span class="post-cat"><span class="tag-dot"></span>{{ post.tags | first | default: 'Note' }}</span>
+    </a>
+    {% endfor %}
+  </section>
+
+  <section class="shell feature">
+    <div class="feature-img">
+      <img src="assets/img/photography/217A3388.jpg" alt="Total solar eclipse — totality" />
+      <span class="placeholder-tag">totality · 2017</span>
+    </div>
+    <div class="feature-text">
+      <div class="feature-meta">aside · photography</div>
+      <h3>The day surrendered to night, and the corona danced.</h3>
+      <p>
+        When I'm not training models I am, more often than is reasonable,
+        pointed at the sky. Eclipses, comets, the Jovian court &mdash; light
+        from a long way off, captured patiently on a small sensor.
+      </p>
+      <a class="btn" href="{{ '/photography/' | relative_url }}">
+        <span>Open the collection</span>
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  const c = document.getElementById("ropeCanvas");
+  if (!c) return;
+  const ctx = c.getContext("2d");
+  const W = c.width, H = c.height;
+  const cx = W/2, cy = H/2, R = 30;
+  let t0 = performance.now();
+
+  function ink() { return getComputedStyle(document.documentElement).getPropertyValue("--ink").trim(); }
+  function muted() { return getComputedStyle(document.documentElement).getPropertyValue("--muted").trim(); }
+  function accent() { return getComputedStyle(document.documentElement).getPropertyValue("--accent").trim(); }
+  function accent2() { return getComputedStyle(document.documentElement).getPropertyValue("--accent-2").trim(); }
+
+  function draw(now) {
+    const t = (now - t0) / 1000;
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = muted(); ctx.globalAlpha = 0.35; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = muted(); ctx.globalAlpha = 0.25;
+    ctx.beginPath(); ctx.moveTo(cx - R - 4, cy); ctx.lineTo(cx + R + 4, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy - R - 4); ctx.lineTo(cx, cy + R + 4); ctx.stroke();
+    ctx.globalAlpha = 1;
+    const aq = t * 0.8; drawVec(aq, R, accent(), 2);
+    const ak = -t * 0.55 + 0.6; drawVec(ak, R * 0.78, accent2(), 2);
+    requestAnimationFrame(draw);
+  }
+  function drawVec(angle, len, color, w) {
+    const x = cx + Math.cos(angle) * len; const y = cy + Math.sin(angle) * len;
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = w;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(x, y); ctx.stroke();
+    const ah = 4; const a2 = Math.atan2(y - cy, x - cx);
+    ctx.beginPath(); ctx.moveTo(x, y);
+    ctx.lineTo(x - ah * Math.cos(a2 - 0.5), y - ah * Math.sin(a2 - 0.5));
+    ctx.lineTo(x - ah * Math.cos(a2 + 0.5), y - ah * Math.sin(a2 + 0.5));
+    ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy, 1.6, 0, Math.PI*2); ctx.fill();
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
